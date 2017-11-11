@@ -18,7 +18,10 @@ gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails'
 gem 'bootstrap-sass' #bootstrap導入
 gem 'font-awesome-rails' #アイコンタグを挿入するヘルパーメソッドを提供
+gem 'bootstrap_form'
 gem 'wareki' #元号表示(平成や昭和など)に対応。案外使える
+gem 'momentjs-rails', '>= 2.9.0'
+gem 'bootstrap3-datetimepicker-rails', '~> 4.17.47'
 # ユーザー機能
 gem 'devise' #ユーザー機能導入
 gem 'devise-i18n' #devise日本語化
@@ -34,6 +37,7 @@ gem 'ransack'
 
 # ページネーション
 gem 'kaminari'
+gem 'kaminari-bootstrap', '~> 3.0.1'
 
 # パンくず
 gem 'gretel'
