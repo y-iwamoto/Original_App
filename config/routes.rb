@@ -3,4 +3,5 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
   root 'travel_planning#index'
   resources :travel_planning, only:[:create,:new,:edit,:update,:destroy,:index]
+  resources :travel_planning_date, only:[:index]
 end

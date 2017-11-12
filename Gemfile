@@ -42,6 +42,8 @@ gem 'kaminari-bootstrap', '~> 3.0.1'
 # パンくず
 gem 'gretel'
 
+gem 'fullcalendar-rails'
+
 # アップロード用
 gem 'carrierwave'
 gem 'mini_magick' #画像リサイズ用のgem

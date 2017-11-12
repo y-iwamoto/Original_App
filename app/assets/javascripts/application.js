@@ -11,7 +11,10 @@
 // about supported directives.
 //
 //= require rails-ujs
-//= require turbolinks
-//= require_tree .
 //= require jquery
+//= require turbolinks
+//= require moment
+//= require fullcalendar
+//= require calendar
 //= require bootstrap-sprockets
+//= require_tree .
