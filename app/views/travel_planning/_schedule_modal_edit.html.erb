@@ -1,0 +1,7 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <%= bootstrap_form_for(@schedule,:url => {:controller => :travel_planning, :action => :update}, remote: true) do |f| %>
+    <%= render partial: 'sche_modal_form' , :locals => {:f => f , :modal_kbn => '更新' } %>
+    <% end %>
+  </div>
+</div>
