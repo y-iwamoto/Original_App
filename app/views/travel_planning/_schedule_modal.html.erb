@@ -1,30 +1,7 @@
 <div class="modal-dialog">
   <div class="modal-content">
     <%= bootstrap_form_for(@schedule,:url => {:controller => :travel_planning, :action => :create}, remote: true) do |f| %>
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <h4 class="modal-title">スケジュールを立てる</h4>
-      </div>
-      <div class="modal-body">
-        <div class="field">
-          <%= f.text_field :title, label: "タイトル" %>
-        </div>
-        <div class="field">
-            <%= f.date_field :from_date , label: "出発日付"%>
-        </div>
-            〜
-          <div class="field">
-              <%= f.date_field :to_date, label: "最終日付" %>
-          </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
-        <!-- ユーザテーブル作成後編集し確認 -->
-        <%= f.hidden_field :user_id, :value =>  '1' %>
-        <%= f.primary "登録" %>
-      </div>
+    <%= render partial: 'sche_modal_form' , :locals => {:f => f , :modal_kbn => '登録' } %>
     <% end %>
   </div>
 </div>

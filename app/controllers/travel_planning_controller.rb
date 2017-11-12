@@ -5,7 +5,7 @@ class TravelPlanningController < ApplicationController
   PER = 10
 
   def index
-    @schedules = Schedule.page(params[:page]).per(PER)
+    @schedules = Schedule.page(params[:page]).per(PER).order('created_at')
   end
 
   def new
@@ -22,7 +22,6 @@ class TravelPlanningController < ApplicationController
     else
       sche_err_chk
     end
-    @schedules = Schedule.page(params[:page]).per(PER)
     redirect_to root_path
   end
 
@@ -35,7 +34,6 @@ class TravelPlanningController < ApplicationController
     else
       sche_err_chk
     end
-    @schedules = Schedule.all
     redirect_to root_path
   end
 
