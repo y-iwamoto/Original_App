@@ -20,13 +20,7 @@ class TravelPlanningController < ApplicationController
     if @schedule.save
       flash[:success] = "スケジュールを作成しました"
     else
-      if @schedule.errors.messages.present?
-        if @schedule.errors.messages[:title].present?
-          flash[:error] = "タイトル" + @schedule.errors.messages[:title][0]
-        end
-        scheFromDateChk
-        scheToDateChk
-      end
+      sche_err_chk
     end
     @schedules = Schedule.page(params[:page]).per(PER)
     redirect_to root_path
@@ -39,13 +33,7 @@ class TravelPlanningController < ApplicationController
     if @schedule.update(schedule_params)
       flash[:success] = "スケジュールを更新しました"
     else
-      if @schedule.errors.messages.present?
-        if @schedule.errors.messages[:title].present?
-          flash[:error] = "タイトル" + @schedule.errors.messages[:title][0]
-        end
-        scheFromDateChk
-        scheToDateChk
-      end
+      sche_err_chk
     end
     @schedules = Schedule.all
     redirect_to root_path
@@ -61,16 +49,20 @@ class TravelPlanningController < ApplicationController
   end
 
   private
-    def scheFromDateChk
-      if @schedule.errors.messages[:from_date].present?
-        flash[:error] = @schedule.errors.messages[:from_date][1]
-      end
-    end
-    def scheToDateChk
-      if @schedule.errors.messages[:to_date].present?
-        flash[:error] = @schedule.errors.messages[:to_date][1]
-      end
-    end
+   def sche_err_chk
+     if @schedule.errors.messages.present?
+       if @schedule.errors.messages[:title].present?
+         flash[:error] = "タイトル" + @schedule.errors.messages[:title][0]
+       end
+         if @schedule.errors.messages[:from_date].present?
+           flash[:error] = @schedule.errors.messages[:from_date][1]
+         end
+         if @schedule.errors.messages[:to_date].present?
+           flash[:error] = @schedule.errors.messages[:to_date][1]
+         end
+     end
+   end
+
     def set_schedule
       @schedule = Schedule.find(params[:id])
     end
