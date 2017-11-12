@@ -47,6 +47,8 @@ gem 'carrierwave'
 gem 'mini_magick' #画像リサイズ用のgem
 gem 'fog'
 
+gem 'activeadmin', github: 'gregbell/active_admin'
+
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'better_errors'

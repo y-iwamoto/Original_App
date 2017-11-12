@@ -1,3 +1,5 @@
+require 'date'
+
 class TravelPlanningController < ApplicationController
   before_action :set_schedule, only: [:edit, :update, :destroy]
   PER = 10
@@ -8,10 +10,9 @@ class TravelPlanningController < ApplicationController
 
   def new
     @schedule = Schedule.new
-    require 'date'
-    Date.today
-    @schedule.from_date = Date.today
-    @schedule.to_date = Date.today
+    today = Date.today
+    @schedule.from_date = today
+    @schedule.to_date = today
   end
 
   def create
@@ -23,12 +24,8 @@ class TravelPlanningController < ApplicationController
         if @schedule.errors.messages[:title].present?
           flash[:error] = "タイトル" + @schedule.errors.messages[:title][0]
         end
-        if @schedule.errors.messages[:from_date].present?
-          flash[:error] = @schedule.errors.messages[:from_date][1]
-        end
-        if @schedule.errors.messages[:to_date].present?
-          flash[:error] = @schedule.errors.messages[:to_date][1]
-        end
+        scheFromDateChk
+        scheToDateChk
       end
     end
     @schedules = Schedule.page(params[:page]).per(PER)
@@ -46,12 +43,8 @@ class TravelPlanningController < ApplicationController
         if @schedule.errors.messages[:title].present?
           flash[:error] = "タイトル" + @schedule.errors.messages[:title][0]
         end
-        if @schedule.errors.messages[:from_date].present?
-          flash[:error] = @schedule.errors.messages[:from_date][1]
-        end
-        if @schedule.errors.messages[:to_date].present?
-          flash[:error] = @schedule.errors.messages[:to_date][1]
-        end
+        scheFromDateChk
+        scheToDateChk
       end
     end
     @schedules = Schedule.all
@@ -68,6 +61,16 @@ class TravelPlanningController < ApplicationController
   end
 
   private
+    def scheFromDateChk
+      if @schedule.errors.messages[:from_date].present?
+        flash[:error] = @schedule.errors.messages[:from_date][1]
+      end
+    end
+    def scheToDateChk
+      if @schedule.errors.messages[:to_date].present?
+        flash[:error] = @schedule.errors.messages[:to_date][1]
+      end
+    end
     def set_schedule
       @schedule = Schedule.find(params[:id])
     end
