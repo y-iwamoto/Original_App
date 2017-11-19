@@ -51,6 +51,8 @@ gem 'fog'
 
 gem 'activeadmin', github: 'gregbell/active_admin'
 
+gem 'jquery-turbolinks'
+
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'better_errors'
