@@ -20,26 +20,8 @@ class TravelPlanningController < ApplicationController
     # トランザクション開始
     ActiveRecord::Base.transaction do
       if @schedule.save!
-        #スケジュールIDから、スケジュール日付を検索
-        @schedule_each_date = ScheduleEachDate.where(schedule_id: @schedule.id)
-        #スケジュール日付がなければ、新規作成
-        if @schedule_each_date.empty?
-          #日付のfrom,toから取得期間を生成
-          from_date = @schedule.from_date
-          to_date = @schedule.to_date
-          travel_term = (to_date - from_date).to_i + 1
-          start_date = from_date
-
-          #初日からループで回し、１件ごとにデータ作成
-          for i in 1..travel_term
-            if !@schedule.schedule_each_dates.create!( user_id: 1, schedule_id: @schedule.id ,sche_date: start_date)
-              #失敗すれば、エラーメッセージ
-                flash[:error] = "スケジュールの作成に失敗しました"
-                redirect_to root_path
-            end
-            start_date = start_date + 1
-          end
-        end
+        #スケジュール日付データを1日ずつ作成
+        sche_each_date_create
         #うまくいけば、成功メッセージ
         flash[:success] = "スケジュールを作成しました"
       else
@@ -58,22 +40,9 @@ class TravelPlanningController < ApplicationController
       if @schedule.update(schedule_params)
         #スケジュールIDを元に、スケジュール日付一旦削除し、新規作成し直す
         ScheduleEachDate.where(schedule_id: @schedule.id).delete_all
-        #日付のfrom,toから取得期間を生成
-        from_date = @schedule.from_date
-        to_date = @schedule.to_date
-        travel_term = (to_date - from_date).to_i + 1
-        start_date = from_date
-
-        #初日からループで回し、１件ごとにデータ作成
-        for i in 1..travel_term
-          if !@schedule.schedule_each_dates.create( user_id: 1, schedule_id: @schedule.id ,sche_date: start_date)
-            #失敗すれば、エラーメッセージ
-              flash[:error] = "スケジュールの更新に失敗しました"
-              redirect_to root_path
-          end
-          start_date = start_date + 1
-        end
-
+        #スケジュール日付データを1日ずつ作成
+        sche_each_date_create
+        #うまくいけば、成功メッセージ
         flash[:success] = "スケジュールを更新しました"
       else
         sche_err_chk
@@ -111,11 +80,30 @@ class TravelPlanningController < ApplicationController
      end
    end
 
-    def set_schedule
-      @schedule = Schedule.find(params[:id])
-    end
-    def schedule_params
-      params.require(:schedule).permit(:user_id,:from_date,:to_date,:title)
-    end
+   def sche_each_date_create
+     #日付のfrom,toから取得期間を生成
+     from_date = @schedule.from_date
+     to_date = @schedule.to_date
+     travel_term = (to_date - from_date).to_i + 1
+     start_date = from_date
+
+     #初日からループで回し、１件ごとにデータ作成
+     for i in 1..travel_term
+       if !@schedule.schedule_each_dates.create!( user_id: 1, schedule_id: @schedule.id ,sche_date: start_date)
+         #失敗すれば、エラーメッセージ
+           flash[:error] = "スケジュールの作成または更新に失敗しました"
+           redirect_to root_path
+       end
+       start_date = start_date + 1
+     end
+   end
+
+  def set_schedule
+    @schedule = Schedule.find(params[:id])
+  end
+  
+  def schedule_params
+    params.require(:schedule).permit(:user_id,:from_date,:to_date,:title)
+  end
 
 end
