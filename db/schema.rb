@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171111100903) do
+ActiveRecord::Schema.define(version: 20171115205436) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 20171111100903) do
   create_table "schedule_each_dates", force: :cascade do |t|
     t.integer "user_id"
     t.integer "schedule_id"
-    t.date "sche_date"
+    t.datetime "sche_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

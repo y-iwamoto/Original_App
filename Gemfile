@@ -42,12 +42,16 @@ gem 'kaminari-bootstrap', '~> 3.0.1'
 # パンくず
 gem 'gretel'
 
+gem 'fullcalendar-rails'
+
 # アップロード用
 gem 'carrierwave'
 gem 'mini_magick' #画像リサイズ用のgem
 gem 'fog'
 
 gem 'activeadmin', github: 'gregbell/active_admin'
+
+gem 'jquery-turbolinks'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

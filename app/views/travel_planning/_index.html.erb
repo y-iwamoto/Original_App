@@ -13,6 +13,11 @@
         <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
       <% end %>
     </td>
+    <td class="">
+      <%= link_to  travel_planning_date_index_path(:schedule_id => schedule.id) do  %>
+        <i class="glyphicon glyphicon-calendar" aria-hidden="true"></i>
+      <% end %>
+    </td>
 
   </tr>
 <% end %>
