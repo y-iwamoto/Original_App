@@ -14,6 +14,7 @@
 //= require jquery
 //= require jquery.turbolinks
 //= require turbolinks
+//= require cocoon
 //= require moment
 //= require fullcalendar
 //= require calendar

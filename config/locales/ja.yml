@@ -5,12 +5,17 @@ ja:
       admin_user: 管理者
       comment: コメント
       name: 名前
+      schedule_each_date: スケジュール日付別
+      schedule_each_time: スケジュール時間帯別
     attributes:
       admin_user:
         email: メールアドレス
         current_sign_in_at: 最新ログイン日時
         sign_in_count: ログイン回数
         created_at: 作成日時
+      schedule_each_date/schedule_each_times:
+        from_time: 滞在開始時間
+        to_time: 滞在終了時間
       name:
         name: 名前
         date: 日付

@@ -1,0 +1,25 @@
+<div class="col-md-12">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Latitude</th>
+        <th>Longitude</th>
+        <th>Address</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= @spot.name %></td>
+        <td><%= @spot.latitude %></td>
+        <td><%= @spot.longitude %></td>
+        <td><%= @spot.address %></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button type="button" class="btn pull-right btn-lg btn-default">
+    <%= link_to '戻る', spot_search_index_path %>
+  </button>
+
+</div>

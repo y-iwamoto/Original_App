@@ -1,0 +1,41 @@
+<div class="row">
+  <div class="row">
+    <div class="col-md-4 col-md-push-6 text-center"><h2>旅行スケジュール時間帯別作成</h2></div>
+  </div>
+  <aside class="col-md-4">
+    <!-- サイドパネル設置予定 -->
+  </aside>
+  <div class="col-md-8">
+    <% flash_messages %>
+      <% if @schedule_each_date.errors.any? %>
+      <div id="error_explanation">
+        <h4><%= @schedule_each_date.errors.count %>件のエラーがあります。</h4>
+        <ul>
+        <% @schedule_each_date.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <%= form_for @schedule_each_date, :url => {:controller => :travel_planning_time, :action => :update} do |f| %>
+      <div class="field">
+        <ol>
+          <%= f.fields_for :schedule_each_times do |schedule_each_time| %>
+            <li>
+              <%= render 'schedule_each_time_fields', :f => schedule_each_time,schedule_each_date: @schedule_each_date ,
+              schedule_each_time: schedule_each_time %>
+            </li>
+            <p>
+              <%= link_to_add_association "スケジュールを追加",f, :schedule_each_times %>
+            </p>
+          <% end %>
+        </ol>
+        <div class="actions">
+          <%= f.submit "登録する" %>
+        </div>
+      </div>
+    <% end %>
+
+  </div>
+</div>

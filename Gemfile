@@ -53,6 +53,12 @@ gem 'activeadmin', github: 'gregbell/active_admin'
 
 gem 'jquery-turbolinks'
 
+gem 'cocoon'
+
+gem 'google_places'
+
+gem 'jc-validates_timeliness'
+
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'better_errors'
