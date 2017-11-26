@@ -1,0 +1,46 @@
+<h1>スポット検索</h1>
+
+<div class="col-md-6">
+  <%= form_tag list_spot_search_index_path, :role =>"form", :method => :get do %>
+    <div class="form-group">
+      <%= text_field_tag :search, params[:search], { :class => "form-control", :required => true, } %>
+      <%= button_tag( {:type => "submit", :name => nil, :class => "btn btn-default" } ) do %>
+        <span class="glyphicon glyphicon-search">キーワード検索</span>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+<div class="col-md-12">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Latitude</th>
+        <th>Longitude</th>
+        <th>Address</th>
+        <th colspan="2"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @spots.each do |spot| %>
+        <tr>
+          <td><%= spot.name %></td>
+          <td><%= spot.latitude %></td>
+          <td><%= spot.longitude %></td>
+          <td><%= spot.address %></td>
+          <td><%= link_to ( spot_search_path(spot)), :title => "show" do %>
+            <span class="glyphicon glyphicon-stats"></span>
+          <% end %></td>
+          <td><%= link_to( spot_search_path(spot), method: :delete, data: { confirm: "#{spot.name} の位置情報を削除します" }, :title => "delete" ) do %>
+            <span class="glyphicon glyphicon-trash"></span>
+          <% end %></td>
+          <td><%= link_to select_spot_search_path(spot) do %>
+            <span class="glyphicon glyphicon-save-file" aria-hidden="true"></span>
+          <% end %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

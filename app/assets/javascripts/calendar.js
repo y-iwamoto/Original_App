@@ -48,7 +48,7 @@ $(document).on('turbolinks:load',function() {
     allDayText:'',                   // 終日スロットのタイトル
     eventClick: function(event) { //イベントをクリックしたときに実行
       var id = event.id
-      var show_url = "schedule_each_date_time/"+id
+      var show_url = "travel_planning_time/"+id
       location.href = show_url;
     }
    });

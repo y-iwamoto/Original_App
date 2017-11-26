@@ -1,0 +1,12 @@
+<!DOCTYPE html PUBLIC -//W3C//DTD XHTML 1.0 Transitional//EN http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd>
+<html>
+  <body>
+    <script>
+      var place_id = localStorage.getItem('place_id');
+      window.opener.document.getElementsByName(place_id)[0].value = <%= spot.id %>;
+      window.opener.document.getElementsByName(place_id)[1].value = <%= spot.id %>;
+      localStorage.removeItem('place_id')
+      window.close();
+    </script>
+  </body>
+</html>

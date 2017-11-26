@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171115205436) do
+ActiveRecord::Schema.define(version: 20171123051348) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,12 +54,33 @@ ActiveRecord::Schema.define(version: 20171115205436) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "schedule_each_times", force: :cascade do |t|
+    t.integer "schedule_id"
+    t.integer "schedule_each_date_id"
+    t.integer "user_id"
+    t.integer "place_id"
+    t.string "memo"
+    t.time "from_time"
+    t.time "to_time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "schedules", force: :cascade do |t|
     t.integer "user_id"
     t.date "from_date"
     t.date "to_date"
     t.string "title"
     t.string "memo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "spots", force: :cascade do |t|
+    t.string "name"
+    t.string "address"
+    t.float "latitude"
+    t.float "longitude"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
