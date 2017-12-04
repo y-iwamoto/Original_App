@@ -19,7 +19,18 @@
   </table>
 
   <button type="button" class="btn pull-right btn-lg btn-default">
-    <%= link_to '戻る', spot_search_index_path %>
+    <%= link_to '戻る', spot_search_index_path,:onclick => "
+    location.reload();" %>
   </button>
 
 </div>
+<div id="map" style="width: 800px; height: 400px;"></div>
+
+<script>
+  handler = Gmaps.build('Google');
+  handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+    markers = handler.addMarkers(<%= raw @hash.to_json %>);
+    handler.bounds.extendWith(markers);
+    handler.fitMapToBounds();
+  });
+</script>

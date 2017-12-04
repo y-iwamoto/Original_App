@@ -33,9 +33,11 @@
         </ol>
         <div class="actions">
           <%= f.submit "登録する" %>
+
         </div>
       </div>
     <% end %>
+    <%= link_to 'ルートを地図で確認する', show_spot_roting_travel_planning_time_index_path(id: @schedule_each_date.id) %>
 
   </div>
 </div>

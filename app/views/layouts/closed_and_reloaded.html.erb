@@ -1,12 +1,27 @@
 <!DOCTYPE html PUBLIC -//W3C//DTD XHTML 1.0 Transitional//EN http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd>
 <html>
   <body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
     <script>
       var place_id = localStorage.getItem('place_id');
+      //選択したスポットプルダウンにidを格納
       window.opener.document.getElementsByName(place_id)[0].value = <%= spot.id %>;
+      //Railsでの登録用としてhiddenフィールドに値を格納
       window.opener.document.getElementsByName(place_id)[1].value = <%= spot.id %>;
-      localStorage.removeItem('place_id')
+      //対象スポットのプルダウンID
+      var id_value = window.opener.document.getElementsByName(place_id)[0].id;
+      localStorage.removeItem('place_id');
       window.close();
+      //対象スポットのプルダウンIDをajaxで渡し、スポットのプルダウンを最新状態にする
+      //（新規登録時にスポット一覧に新規のスポット名が表示されないため）
+      $.ajax({
+        url: "http://localhost:3000/travel_planning_time/change_spot_ary",
+        type: "GET",
+        data: {
+          "id_value": id_value,
+          remote:true
+                }
+      });
     </script>
   </body>
 </html>

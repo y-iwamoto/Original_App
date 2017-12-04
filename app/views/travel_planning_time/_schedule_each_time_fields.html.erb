@@ -10,11 +10,11 @@
     </div>
     <div class="field">
       <%= f.label :memo, "メモ" %>
-      <%= f.text_field :memo %>　
+      <%= f.text_field :memo %>
       <%= f.label :place_id, "場所" %>
-      <%= f.select :place_id, @spots, {}, :disabled => true %>
+      <%= render 'change_spot_ary', :f => f,spots: @spots%>
       <%= f.hidden_field :place_id %>
-      <%= link_to '場所名を選択する', spot_search_index_path, :onclick => "
+      <%= link_to '場所名を選択する', spot_search_index_path(user_id: @schedule_each_date.user_id), :onclick => "
       var prevElement1 = event.target.previousElementSibling;
       var place_id = prevElement1.getAttribute('name');
       localStorage.setItem('place_id', place_id);

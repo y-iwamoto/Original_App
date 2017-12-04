@@ -56,8 +56,11 @@ gem 'jquery-turbolinks'
 gem 'cocoon'
 
 gem 'google_places'
+gem 'gmaps4rails'
 
 gem 'jc-validates_timeliness'
+
+gem 'jquery-datatables-rails'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -79,6 +82,7 @@ group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'meta_request'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

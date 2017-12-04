@@ -1,23 +1,18 @@
 <h1>スポット検索結果</h1>
 
 <div class="col-md-12">
-  <table class="table table-striped">
+  <table id = "spots" class="table table-striped table-bordered">
     <thead>
       <tr>
-        <th>Name</th>
-        <th>Latitude</th>
-        <th>Longitude</th>
-        <th>Address</th>
+        <th>場所名</th>
+        <th>住所</th>
         <th></th>
       </tr>
     </thead>
-
     <tbody>
       <% @spots.each do |spot| %>
         <tr>
           <td><%= spot.name %></td>
-          <td><%= spot.lat %></td>
-          <td><%= spot.lng %></td>
           <td><%= spot.formatted_address %></td>
           <td><%= link_to( '登録', spot_search_index_path( :spot => { :name      => spot.name,
                                                                  :latitude  => spot.lat,
@@ -30,7 +25,8 @@
   </table>
 
   <button type="button" class="btn pull-right btn-lg btn-default">
-    <%= link_to 'Back', spot_search_index_path %>
+    <%= link_to '戻る', spot_search_index_path,:onclick => "
+    location.reload();" %>
   </button>
 
 </div>
