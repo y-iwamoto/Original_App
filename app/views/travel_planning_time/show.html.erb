@@ -17,7 +17,7 @@
         </ul>
       </div>
     <% end %>
-
+    <% i = 1 %>
     <%= form_for @schedule_each_date, :url => {:controller => :travel_planning_time, :action => :update} do |f| %>
       <div class="field">
         <ol>
@@ -26,18 +26,26 @@
               <%= render 'schedule_each_time_fields', :f => schedule_each_time,schedule_each_date: @schedule_each_date ,
               schedule_each_time: schedule_each_time %>
             </li>
-            <p>
-              <%= link_to_add_association "スケジュールを追加",f, :schedule_each_times %>
-            </p>
+            <% i += 1 %>
+            <strong class="add_fields">
+            <% if i ==  @schedule_each_date.schedule_each_times.count + 1 %>
+                <%= link_to_add_association "スケジュールを新規追加",f, :schedule_each_times  %>
+            <% end %>
+          </strong>
           <% end %>
         </ol>
         <div class="actions">
           <%= f.submit "登録する" %>
-
         </div>
       </div>
     <% end %>
-    <%= link_to 'ルートを地図で確認する', show_spot_roting_travel_planning_time_index_path(id: @schedule_each_date.id) %>
-
+    <strong class="sonota_btns">
+      <%= link_to 'ルートを地図で確認する', show_spot_roting_travel_planning_time_index_path(id: @schedule_each_date.id) %>
+    </strong>
+    <strong class="sonota_btns">
+      <%= link_to  travel_planning_date_index_path(:schedule_id => @schedule_each_date.schedule_id) do  %>
+        <i class="glyphicon glyphicon-step-backward" aria-hidden="true">(戻る)</i>
+      <% end %>
+    </strong>
   </div>
 </div>

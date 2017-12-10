@@ -4,24 +4,23 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
     <script>
       var place_id = localStorage.getItem('place_id');
-      //選択したスポットプルダウンにidを格納
+      //対象の場所のプルダウンの要素を取得
+      var select =   window.opener.document.getElementsByName(place_id)[0];
+      // <option> 要素を宣言
+      var option = document.createElement('option');
+      //プルダウンに、今回選択したスポットを追加
+      option.setAttribute('value', <%= spot.id %>);
+      option.innerHTML = "<%= spot.name %>";
+
+      // 上記で設定した <option value=""></option> を、
+      // <select> 内に追加する
+      select.appendChild(option);
+      //現在のプルダウン選択値を先ほど追加した項目にする
       window.opener.document.getElementsByName(place_id)[0].value = <%= spot.id %>;
       //Railsでの登録用としてhiddenフィールドに値を格納
       window.opener.document.getElementsByName(place_id)[1].value = <%= spot.id %>;
-      //対象スポットのプルダウンID
-      var id_value = window.opener.document.getElementsByName(place_id)[0].id;
       localStorage.removeItem('place_id');
       window.close();
-      //対象スポットのプルダウンIDをajaxで渡し、スポットのプルダウンを最新状態にする
-      //（新規登録時にスポット一覧に新規のスポット名が表示されないため）
-      $.ajax({
-        url: "http://localhost:3000/travel_planning_time/change_spot_ary",
-        type: "GET",
-        data: {
-          "id_value": id_value,
-          remote:true
-                }
-      });
     </script>
   </body>
 </html>

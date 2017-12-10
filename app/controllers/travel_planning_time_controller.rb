@@ -1,6 +1,10 @@
 class TravelPlanningTimeController < ApplicationController
   before_action :set_schedule_date, only: [:show,:edit, :update, :destroy,:show_spot_roting]
   def show
+    #対象スケジュール日付に紐づくスケジュール時間帯別が１軒もない場合は、スケジュール時間帯別を新規作成
+    if @schedule_each_date.schedule_each_times.empty?
+      @schedule_each_date.schedule_each_times.new(schedule_id: @schedule_each_date.schedule_id, schedule_each_date_id: @schedule_each_date.id, user_id:@schedule_each_date.user_id)
+    end
     getSpotAll
   end
 
@@ -36,15 +40,6 @@ class TravelPlanningTimeController < ApplicationController
       format.json { render :json => @hash.to_json }
     end
 
-  end
-  def change_spot_ary
-    getSpotAll
-    session.delete(:schedule_each_date_id)
-    session.delete(:user_id)
-    #スポット検索後のスポットプルダウン情報を表示させるため、処理をJSに移す
-    respond_to do |format|
-      format.js
-    end
   end
   private
   #マスタテーブル該当データを表示させるため、場所名をセレクトボックスで全件入れて準備

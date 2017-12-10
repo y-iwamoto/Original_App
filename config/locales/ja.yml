@@ -16,6 +16,8 @@ ja:
       schedule_each_date/schedule_each_times:
         from_time: 滞在開始時間
         to_time: 滞在終了時間
+        place_id: 滞在場所
+        schedule_each_times: スケジュール
       name:
         name: 名前
         date: 日付
