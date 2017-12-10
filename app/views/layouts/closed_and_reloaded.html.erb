@@ -1,11 +1,25 @@
 <!DOCTYPE html PUBLIC -//W3C//DTD XHTML 1.0 Transitional//EN http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd>
 <html>
   <body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
     <script>
       var place_id = localStorage.getItem('place_id');
+      //対象の場所のプルダウンの要素を取得
+      var select =   window.opener.document.getElementsByName(place_id)[0];
+      // <option> 要素を宣言
+      var option = document.createElement('option');
+      //プルダウンに、今回選択したスポットを追加
+      option.setAttribute('value', <%= spot.id %>);
+      option.innerHTML = "<%= spot.name %>";
+
+      // 上記で設定した <option value=""></option> を、
+      // <select> 内に追加する
+      select.appendChild(option);
+      //現在のプルダウン選択値を先ほど追加した項目にする
       window.opener.document.getElementsByName(place_id)[0].value = <%= spot.id %>;
+      //Railsでの登録用としてhiddenフィールドに値を格納
       window.opener.document.getElementsByName(place_id)[1].value = <%= spot.id %>;
-      localStorage.removeItem('place_id')
+      localStorage.removeItem('place_id');
       window.close();
     </script>
   </body>

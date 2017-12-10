@@ -12,7 +12,11 @@ Rails.application.routes.draw do
 
   resources :travel_planning, only:[:create,:new,:edit,:update,:destroy,:index]
   resources :travel_planning_date, only:[:index]
-  resources :travel_planning_time, only:[:show,:update]
+  resources :travel_planning_time, only:[:show,:update]do
+    collection do
+      get :show_spot_roting
+    end
+  end
 
   resources :spot_search, :only => [ :index, :show, :create, :destroy ] do
     collection do
@@ -20,6 +24,7 @@ Rails.application.routes.draw do
     end
     member do
       get :select
+      get :favorite_create
     end
   end
 

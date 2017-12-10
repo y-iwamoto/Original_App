@@ -1,0 +1,104 @@
+<div id="map" style="width: 800px; height: 400px;"></div>
+<%= link_to "戻る", :back %>
+<script type="text/javascript">
+  //GoogleMapのhandler作成
+  var handler = Gmaps.build('Google');
+  handler.buildMap({ provider: {
+    mapTypeId: google.maps.MapTypeId.DRIVING},
+    internal: {id: 'map'}}, function(){
+    directionsDisplay.setMap(handler.getMap());
+  });
+  //初期のルートのマップのピンは非表示にし、作り直す
+  var rendererOptions = {
+     map: handler.getMap(),
+     suppressMarkers : true
+   }
+  var directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
+  var directionsService = new google.maps.DirectionsService();
+  var stepDisplay = new google.maps.InfoWindow();
+  var markerArray = [];
+  //ルート処理実施
+  calcRoute();
+
+  function calcRoute() {
+    //Railsから対象スケジュール日付のスポットを取得
+    var pointsAry = <%= raw @hash.to_json %>;
+    var waypoints = [];
+    var origin = null;
+    var dest = null;
+    //時間帯別にスポットをループで回し、最終スポットでルート処理を開始する
+    for (var i = 0, len = pointsAry.length; i < len; i++) {
+      // 最初の場合、originに値をセット
+        if (origin == null) {
+            origin = pointsAry[i];
+        }
+        // 経由地が8つたまったか最後の地点の場合、ルート検索
+        // 9件以降はエラーが派生するため、8件目まで表示
+        else if (waypoints.length == 8 || i == len - 1) {
+            dest = pointsAry[i];
+
+            // ルート検索の条件
+            var request = {
+                origin: origin, // 出発地
+                destination: dest, // 目的地
+                waypoints: waypoints, // 経由地
+                travelMode: google.maps.DirectionsTravelMode.WALKING, // 交通手段(歩行。DRIVINGの場合は車)
+            };
+            // ルート検索
+            directionsService.route(request, function(response, status) {
+              if (status == google.maps.DirectionsStatus.OK) {
+                directionsDisplay.setDirections(response);
+                //マップのピン（マーカー）を作り直す
+                showSteps(response,pointsAry);
+              }
+            });
+            break;
+        }
+        // 上記以外、waypoints（途中地点）に地点を追加
+        else {
+            waypoints.push({ location: pointsAry[i], stopover: true });
+        }
+    }
+  }
+
+  function showSteps(directionResult,pointsAry) {
+      //ルート検索後の各スポットの情報
+      var myRoute = directionResult.geocoded_waypoints;
+      //各スポットごとにマーカーを作成し直す
+      for (var i = 0; i < myRoute.length; i++) {
+        //Railsからスポット名を取得
+        var place_name = pointsAry[i].infowindow;
+        var cnt = i + 1;
+        //数字つきマーカーのアイコン
+        var icon = "https://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=" + cnt + "|FF0000|000000";
+        var position = null;
+        //一番目の地点情報
+        if (i == 0) {
+            position = directionResult.request.origin.location;
+        //最後のスポットの地点情報
+        } else if (i == myRoute.length - 1) {
+            position = directionResult.request.destination.location;
+        //その他（途中地点）の地点情報
+        } else {
+            position = directionResult.request.waypoints[i-1].location.location;
+        }
+        var marker = new google.maps.Marker({
+          position: position,
+          map: handler.getMap(),
+          icon: icon
+        });
+        //各マーカーをクリックした際に、住所名を表示
+        attachInstructionText(marker, place_name);
+        markerArray.push(marker);
+      }
+
+      google.maps.event.trigger(markerArray[0], "click");
+    }
+    function attachInstructionText(marker, text) {
+      //各マーカーをクリックした際に、住所名を表示
+      google.maps.event.addListener(marker, 'click', function() {
+        stepDisplay.setContent(text);
+        stepDisplay.open(handler.getMap(), marker);
+      });
+    }
+</script>

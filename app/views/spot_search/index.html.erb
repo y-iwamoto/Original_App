@@ -3,23 +3,24 @@
 <div class="col-md-6">
   <%= form_tag list_spot_search_index_path, :role =>"form", :method => :get do %>
     <div class="form-group">
-      <%= text_field_tag :search, params[:search], { :class => "form-control", :required => true, } %>
+      <%= text_field_tag :search, params[:search], { :class => "form-control", :required => true,  :placeholder => "都市名×スポット名またはキーワードを入力してください" } %>
       <%= button_tag( {:type => "submit", :name => nil, :class => "btn btn-default" } ) do %>
         <span class="glyphicon glyphicon-search">キーワード検索</span>
       <% end %>
     </div>
   <% end %>
 </div>
-
 <div class="col-md-12">
-  <table class="table table-striped">
+<% flash_messages %>
+  <table id = "spots" class="table table-striped table-bordered">
     <thead>
       <tr>
-        <th>Name</th>
-        <th>Latitude</th>
-        <th>Longitude</th>
-        <th>Address</th>
-        <th colspan="2"></th>
+        <th>場所名</th>
+        <th>住所</th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
       </tr>
     </thead>
 
@@ -27,8 +28,6 @@
       <% @spots.each do |spot| %>
         <tr>
           <td><%= spot.name %></td>
-          <td><%= spot.latitude %></td>
-          <td><%= spot.longitude %></td>
           <td><%= spot.address %></td>
           <td><%= link_to ( spot_search_path(spot)), :title => "show" do %>
             <span class="glyphicon glyphicon-stats"></span>
@@ -38,6 +37,9 @@
           <% end %></td>
           <td><%= link_to select_spot_search_path(spot) do %>
             <span class="glyphicon glyphicon-save-file" aria-hidden="true"></span>
+          <% end %></td>
+          <td><%= link_to favorite_create_spot_search_path(spot) do %>
+            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
           <% end %></td>
         </tr>
       <% end %>

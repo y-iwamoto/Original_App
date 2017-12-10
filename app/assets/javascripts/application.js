@@ -10,6 +10,8 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require underscore
+//= require gmaps/google
 //= require rails-ujs
 //= require jquery
 //= require jquery.turbolinks
@@ -19,3 +21,6 @@
 //= require fullcalendar
 //= require calendar
 //= require bootstrap-sprockets
+//= require dataTables/jquery.dataTables
+//= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
+//= require spots
