@@ -13,9 +13,43 @@ class SpotSearchController < ApplicationController
     keyword = params[:search]
     @client = GooglePlaces::Client.new( ENV['GOOGLE_API_KEY'] )
     @spots = @client.spots_by_query( keyword , :language => 'ja' )
+
   end
 
   def show
+    @client = GooglePlaces::Client.new( ENV['GOOGLE_API_KEY'] )
+    @spot_details = @client.spot( @spot.place_id , :language => 'ja' )
+    #スポットの住所で”国名、”より前が不要なので取り除いた住所を取得
+    /、/ =~ @spot_details.formatted_address
+    @formatted_address = $'
+    #もし街灯がなければ、Placeで取得した住所をそのまま表示
+    if @formatted_address == nil
+      @formatted_address = @spot_details.formatted_address
+    end
+    #プレイスから所得できたフォトデータを最大10件まで配列に格納
+    @arr = Array.new
+    i = 0
+    @spot_details.photos.each do |photo|
+        @arr.push(photo.photo_reference)
+        i = i + 1
+        break if i == 10
+    end
+    #地図にマーカーを表示させるhash
+    @hash = Gmaps4rails.build_markers(@spot) do |spot, marker|
+      marker.lat spot.latitude
+      marker.lng spot.longitude
+      marker.infowindow spot.name
+    end
+    respond_to do |format|
+      format.html
+    end
+  end
+
+  def getImg
+    #画像のバイナリデータを取得
+    @photo = HTTParty.get("https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&maxheight=400&photoreference=#{params[:photo_reference]}&key=#{ENV['GOOGLE_API_KEY']}")
+    #画像データを送信
+    send_data @photo, :type => 'image/png', :disposition => 'inline'
   end
 
   def select
@@ -73,6 +107,6 @@ class SpotSearchController < ApplicationController
     end
 
     def spot_params
-      params.require(:spot).permit(:name, :latitude, :longitude, :address)
+      params.require(:spot).permit(:name, :latitude, :longitude, :address,:place_id)
     end
 end
