@@ -1,7 +1,4 @@
 <div class="row">
-  <div class="row">
-    <div class="col-md-4 col-md-push-6 text-center"><h2>旅行スケジュール時間帯別作成</h2></div>
-  </div>
   <aside class="col-md-4">
     <!-- サイドパネル設置予定 -->
   </aside>
@@ -17,6 +14,9 @@
         </ul>
       </div>
     <% end %>
+    <div class="row">
+      <div class="col-md-4 col-md-push-4 text-center"><h4>スケジュール時間帯別作成</h4></div>
+    </div>
     <% i = 1 %>
     <%= form_for @schedule_each_date, :url => {:controller => :travel_planning_time, :action => :update} do |f| %>
       <div class="field">
@@ -34,18 +34,20 @@
           </strong>
           <% end %>
         </ol>
-        <div class="actions">
+        <div class="sonota_btns">
           <%= f.submit "登録する" %>
         </div>
       </div>
     <% end %>
-    <strong class="sonota_btns">
-      <%= link_to 'ルートを地図で確認する', show_spot_roting_travel_planning_time_index_path(id: @schedule_each_date.id) %>
-    </strong>
-    <strong class="sonota_btns">
-      <%= link_to  travel_planning_date_index_path(:schedule_id => @schedule_each_date.schedule_id) do  %>
-        <i class="glyphicon glyphicon-step-backward" aria-hidden="true">(戻る)</i>
-      <% end %>
-    </strong>
+    <% if @schedule_each_date.schedule_each_times.count >= 2 %>
+      <strong class="sonota_btns">
+        <%= link_to 'ルートを地図で確認する', show_spot_roting_travel_planning_time_index_path(id: @schedule_each_date.id) %>
+      </strong>
+    <% end %>
+      <strong class="sonota_btns">
+        <%= link_to  travel_planning_date_index_path(:schedule_id => @schedule_each_date.schedule_id) do  %>
+          <i class="glyphicon glyphicon-step-backward" aria-hidden="true">(戻る)</i>
+        <% end %>
+      </strong>
   </div>
 </div>
