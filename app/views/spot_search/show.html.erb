@@ -1,31 +1,40 @@
-<div class="col-md-12">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Latitude</th>
-        <th>Longitude</th>
-        <th>Address</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><%= @spot.name %></td>
-        <td><%= @spot.latitude %></td>
-        <td><%= @spot.longitude %></td>
-        <td><%= @spot.address %></td>
-      </tr>
-    </tbody>
-  </table>
+<h1 class="text-center">スポット詳細</h1>
+<u><h3 class="text-center"><%= @spot_details.name %></h3></u>
 
-  <button type="button" class="btn pull-right btn-lg btn-default">
-    <%= link_to '戻る', spot_search_index_path,:onclick => "
-    location.reload();" %>
-  </button>
+<button type="button" class="btn pull-right btn-lg btn-default">
+  <%= link_to '戻る', spot_search_index_path,:onclick => "
+  location.reload();" %>
+</button>
 
-</div>
-<div id="map" style="width: 800px; height: 400px;"></div>
 
+<div id="map" class="center-block" style="width: 800px; height: 400px;"></div>
+
+<% @arr.each do |photo_reference| %>
+  <%= image_tag(url_for(:action => 'getImg', :photo_reference => photo_reference), :size => '100x100')%></td>
+<% end %>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>住所</th>
+      <th>営業時間</th>
+      <th>Tel</th>
+      <th>サイトURL</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= @formatted_address %></td>
+      <td>
+        <% if @spot_details.opening_hours != nil %>
+              <%= @spot_details.opening_hours["periods"][0]["open"]["time"].insert(2, ":") %>〜<%= @spot_details.opening_hours["periods"][0]["close"]["time"].insert(2, ":") if @spot_details.opening_hours["periods"][0]["close"] != nil %>
+        <% end %>
+      </td>
+      <td><%= @spot_details.formatted_phone_number %></td>
+      <td><%= link_to @spot_details.website,@spot_details.website, :target=>["_blank"] if @spot_details.website != nil%></td>
+    </tr>
+  </tbody>
+</table>
 <script>
   handler = Gmaps.build('Google');
   handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){

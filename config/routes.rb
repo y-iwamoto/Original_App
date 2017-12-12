@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   resources :spot_search, :only => [ :index, :show, :create, :destroy ] do
     collection do
       get :list
+      get :getImg
     end
     member do
       get :select
