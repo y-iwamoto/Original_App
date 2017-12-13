@@ -2,10 +2,8 @@ class TravelPlanningTimeController < ApplicationController
   before_action :set_schedule_date, only: [:show,:edit, :update, :destroy,:show_spot_roting]
   def show
     #対象スケジュール日付に紐づくスケジュール時間帯別が１軒もない場合は、スケジュール時間帯別を新規作成
-    @delete_btn_disp_flg = true
     if @schedule_each_date.schedule_each_times.empty?
       @schedule_each_date.schedule_each_times.new(schedule_id: @schedule_each_date.schedule_id, schedule_each_date_id: @schedule_each_date.id, user_id:@schedule_each_date.user_id)
-      @delete_btn_disp_flg = false
     end
     getSpotAll
   end

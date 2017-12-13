@@ -20,7 +20,7 @@
       localStorage.setItem('place_id', place_id);
       window.open(this.href, 'height=800, width=800');return false;"  %>
     </div>
-    <% if @delete_btn_disp_flg == true %>
+    <% if @schedule_each_date.schedule_each_times.count != 0 %>
       <%= link_to_remove_association "このスケジュールを削除する", f %>
     <% end %>
 </div>
