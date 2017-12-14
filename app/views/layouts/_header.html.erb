@@ -1,0 +1,17 @@
+<header class="navbar navbar-fixed-top navbar-inverse">
+   <div class="container">
+     <nav>
+       <ul class="nav navbar-nav navbar-left">
+         <li><%= link_to "旅行計画作成",    travel_planning_index_path %></li>
+       </ul>
+       <ul class="nav navbar-nav navbar-left">
+         <!-- あとでユーザIDの部分を変更 -->
+         <li><%= link_to "スポット検索",    spot_search_index_path(user_id: 1,select_link_disp: false),:onclick => "
+         location.reload();" %></li>
+       </ul>
+     </nav>
+     <ul class="nav navbar-nav navbar-right">
+       <li><%= link_to "Travel Planning", travel_planning_index_path, id: "logo" %></li>
+     </ul>
+   </div>
+ </header>

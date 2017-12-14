@@ -1,6 +1,5 @@
-<h1>スポット検索</h1>
-
 <div class="col-md-6">
+  <h1>スポット検索</h1>
   <%= form_tag list_spot_search_index_path, :role =>"form", :method => :get do %>
     <div class="form-group">
       <%= text_field_tag :search, params[:search], { :class => "form-control", :required => true,  :placeholder => "都市名×スポット名またはキーワードを入力してください" } %>
@@ -19,7 +18,9 @@
         <th>住所</th>
         <th></th>
         <th></th>
+      <% if session[:select_link_disp] == true %>
         <th></th>
+      <% end %>
         <th></th>
       </tr>
     </thead>
@@ -35,9 +36,11 @@
           <td><%= link_to( spot_search_path(spot), method: :delete, data: { confirm: "#{spot.name} の位置情報を削除します" }, :title => "delete" ) do %>
             <span class="glyphicon glyphicon-trash"></span>
           <% end %></td>
-          <td><%= link_to select_spot_search_path(spot) do %>
-            <span class="glyphicon glyphicon-save-file" aria-hidden="true"></span>
-          <% end %></td>
+          <% if session[:select_link_disp] == true %>
+            <td><%= link_to select_spot_search_path(spot) do %>
+              <span class="glyphicon glyphicon-save-file" aria-hidden="true"></span>
+            <% end %></td>
+          <% end %>
           <td><%= link_to favorite_create_spot_search_path(spot) do %>
             <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
           <% end %></td>

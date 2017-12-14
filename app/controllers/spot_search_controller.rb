@@ -5,6 +5,12 @@ class SpotSearchController < ApplicationController
     if params[:user_id].present?
       session[:user_id] = params[:user_id]
     end
+    #時間帯別の場所名を選択するリンクから来た場合は、選択ボタンを表示させるが、
+    #ヘッダーから遷移して来た場合は表示させない
+    if params[:select_link_disp].present?
+      params[:select_link_disp] == "true" ? params[:select_link_disp] = true : params[:select_link_disp] = false
+      session[:select_link_disp] = params[:select_link_disp]
+    end
     @spots = Spot.all
   end
 
