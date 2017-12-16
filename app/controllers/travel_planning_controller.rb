@@ -5,7 +5,7 @@ class TravelPlanningController < ApplicationController
   PER = 10
 
   def index
-    @schedules = Schedule.page(params[:page]).per(PER).order('created_at')
+    @schedules = Schedule.where(user_id: current_user.id).page(params[:page]).per(PER).order('created_at')
   end
 
   def new
@@ -28,7 +28,7 @@ class TravelPlanningController < ApplicationController
         sche_err_chk
       end
     end
-    redirect_to root_path
+    redirect_to travel_planning_index_path
   end
 
   def edit
@@ -48,7 +48,7 @@ class TravelPlanningController < ApplicationController
         sche_err_chk
       end
     end
-    redirect_to root_path
+    redirect_to travel_planning_index_path
   end
 
   def destroy
@@ -62,7 +62,7 @@ class TravelPlanningController < ApplicationController
         flash[:error] = "スケジュールの削除に失敗しました"
       end
     end
-    redirect_to root_path
+    redirect_to travel_planning_index_path
   end
 
   private
@@ -89,10 +89,10 @@ class TravelPlanningController < ApplicationController
 
      #初日からループで回し、１件ごとにデータ作成
      for i in 1..travel_term
-       if !@schedule.schedule_each_dates.create!( user_id: 1, schedule_id: @schedule.id ,sche_date: start_date)
+       if !@schedule.schedule_each_dates.create!( user_id: current_user.id, schedule_id: @schedule.id ,sche_date: start_date)
          #失敗すれば、エラーメッセージ
            flash[:error] = "スケジュールの作成または更新に失敗しました"
-           redirect_to root_path
+           redirect_to travel_planning_index_path
        end
        start_date = start_date + 1
      end
@@ -101,7 +101,7 @@ class TravelPlanningController < ApplicationController
   def set_schedule
     @schedule = Schedule.find(params[:id])
   end
-  
+
   def schedule_params
     params.require(:schedule).permit(:user_id,:from_date,:to_date,:title)
   end

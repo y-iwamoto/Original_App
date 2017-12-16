@@ -14,7 +14,7 @@
       <%= f.label :place_id, "場所" %>
       <%= f.select :place_id, @spots, {}, :disabled => true %>
       <%= f.hidden_field :place_id %>
-      <%= link_to '場所名を選択する', spot_search_index_path(user_id: @schedule_each_date.user_id,select_link_disp: true), :onclick => "
+      <%= link_to '場所名を選択する', spot_search_index_path(select_link_disp: true), :onclick => "
       var prevElement1 = event.target.previousElementSibling;
       var place_id = prevElement1.getAttribute('name');
       localStorage.setItem('place_id', place_id);
