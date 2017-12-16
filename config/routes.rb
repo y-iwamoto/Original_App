@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
 
+  devise_for :users, controllers: { registrations: 'registrations' }
+  get 'home/index'
+
+  get 'home/show'
+
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
-  root 'travel_planning#index'
-
+  root to: "home#index"
   namespace :api, { format: 'json' } do
     namespace :v1 do
         resources :schedule_each_date

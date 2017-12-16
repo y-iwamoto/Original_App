@@ -1,17 +1,13 @@
 class SpotSearchController < ApplicationController
   before_action :set_spot, only: [:show, :destroy, :select,:favorite_create]
   def index
-    #お気に入り登録時にユーザIDが必要のため、セッションに格納
-    if params[:user_id].present?
-      session[:user_id] = params[:user_id]
-    end
     #時間帯別の場所名を選択するリンクから来た場合は、選択ボタンを表示させるが、
     #ヘッダーから遷移して来た場合は表示させない
     if params[:select_link_disp].present?
       params[:select_link_disp] == "true" ? params[:select_link_disp] = true : params[:select_link_disp] = false
       session[:select_link_disp] = params[:select_link_disp]
     end
-    @spots = Spot.all
+    @spots = Spot.where(user_id: current_user.id)
   end
 
   def list
@@ -64,18 +60,24 @@ class SpotSearchController < ApplicationController
   end
 
   def favorite_create
-    #お気に入りスポットから対象スポットIDで検索
-    @favorite_spot = FavoriteSpot.find_by(user_id: session[:user_id],spot_id: @spot.id)
-    #検索結果があればdelete,なければcreate
-    if @favorite_spot.present?
-      @favorite_spot.destroy
+    #お気に入りフラグをtrueでセット
+    change_favorite_flg = true
+    #すでにお気に入りフラグが立って入れば、falseにする
+    if @spot.favorite_flg == true
+      change_favorite_flg = false
+    end
+    #スポットを更新する
+    if @spot.update_attribute(:favorite_flg, change_favorite_flg)
+      notice = "お気に入りに追加しました"
+      if change_favorite_flg == false
+        notice = "お気に入りから解除しました"
+      end
       respond_to do |format|
-        format.html { redirect_to spot_search_index_path, notice: "お気に入り情報から削除しました" }
+        format.html { redirect_to spot_search_index_path, notice: notice }
       end
     else
-      FavoriteSpot.create(user_id: session[:user_id],spot_id: @spot.id)
       respond_to do |format|
-        format.html { redirect_to spot_search_index_path, notice: "お気に入り情報に登録しました" }
+        format.html { redirect_to spot_search_index_path, notice: "お気に入り追加に失敗しました" }
       end
     end
   end
@@ -93,14 +95,6 @@ class SpotSearchController < ApplicationController
  end
 
  def destroy
-   #まずお気に入り情報を削除
-   #お気に入りスポットから対象スポットIDで検索
-   @favorite_spot = FavoriteSpot.find_by(user_id: session[:user_id],spot_id: @spot.id)
-   #検索結果があればdelete,なければcreate
-   if @favorite_spot.present?
-     @favorite_spot.destroy
-   end
-   #次にスポット情報を削除
    @spot.destroy
    respond_to do |format|
      format.html { redirect_to spot_search_index_path, notice: "#{@spot.name} の位置情報を削除しました" }
@@ -113,6 +107,6 @@ class SpotSearchController < ApplicationController
     end
 
     def spot_params
-      params.require(:spot).permit(:name, :latitude, :longitude, :address,:place_id)
+      params.require(:spot).permit(:name, :latitude, :longitude, :address,:place_id,:user_id,:favorite_flg)
     end
 end
