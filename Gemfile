@@ -25,6 +25,9 @@ gem 'bootstrap3-datetimepicker-rails', '~> 4.17.47'
 # ユーザー機能
 gem 'devise' #ユーザー機能導入
 gem 'devise-i18n' #devise日本語化
+gem 'omniauth'
+gem 'omniauth-facebook'
+gem 'omniauth-google-oauth2'
 # 各種ファイル設定用
 gem 'dotenv-rails' #ドットファイルの定義用
 gem 'config' #定数定義用
