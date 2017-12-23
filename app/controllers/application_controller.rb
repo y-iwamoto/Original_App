@@ -6,7 +6,9 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
       travel_planning_index_path
   end
-
+  def current_notifications
+     @notifications_count = Notification.where(my_user_id: current_user.id).where(read: false).count
+   end
   protected
     def sign_in_required
         redirect_to new_user_session_url unless user_signed_in?

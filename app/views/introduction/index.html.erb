@@ -1,0 +1,9 @@
+<% flash_messages %>
+
+<%= form_tag('/post', :remote => true) do %>
+  <%= label_tag '名前' %>
+  <%= text_field_tag 'name' %><br/>
+  <%= label_tag 'Email' %>
+  <%= text_field_tag 'email' %><br/>
+  <%= submit_tag '通知を送る' %>
+<% end %>

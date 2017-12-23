@@ -16,6 +16,16 @@
          <li><%= link_to 'お気に入りスポット', favorite_spot_list_spot_search_index_path %></li>
        </ul>
        <ul class="nav navbar-nav navbar-left">
+         <li><%= link_to '紹介', introduction_index_path %></li>
+       </ul>
+       <ul class="nav navbar-nav navbar-left">
+         <li>
+            <%= link_to notification_index_path do %>
+             <i class="fa fa-bell"><%= @notifications_count %></i>
+           <% end %>
+          </li>
+       </ul>
+       <ul class="nav navbar-nav navbar-left">
          <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
        </ul>
      </nav>

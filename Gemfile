@@ -51,7 +51,6 @@ gem 'fullcalendar-rails'
 gem 'carrierwave'
 gem 'mini_magick' #画像リサイズ用のgem
 gem 'fog'
-
 gem 'activeadmin', github: 'gregbell/active_admin'
 
 gem 'jquery-turbolinks'
@@ -67,6 +66,10 @@ gem 'jquery-datatables-rails'
 
 gem 'httparty'
 
+gem 'pusher'
+gem 'unicorn'
+gem 'therubyracer', platforms: :ruby
+
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'better_errors'
@@ -80,6 +83,11 @@ group :development, :test do
   gem 'letter_opener' #メール送信機能をローカルで試すためのgem
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
+  gem 'capistrano', '3.6.0'
+  gem 'capistrano-bundler'
+  gem 'capistrano-rails'
+  gem 'capistrano-rbenv'
+  gem 'capistrano3-unicorn'
 end
 
 group :development do
