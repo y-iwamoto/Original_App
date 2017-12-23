@@ -1,2 +1,104 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<div class="jumbotron">
+  <h2>Travel Planning</h2>
+  <p>あなたの旅行計画を楽しいものに</p>
+</div>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4>最近登録されたスポット</h4>
+  </div>
+  <div class="panel-body">
+    <% if @newest_spots_ary.count != 0%>
+    <div id="newspot-carousel" class="carousel slide" data-ride="carousel" >
+      <!-- 何枚目かの画像かを表すインディケーター -->
+      <ol class="carousel-indicators">
+        <li data-target="#newspot-carousel" data-slide-to="0" class="active"></li>
+        <li data-target="#newspot-carousel" data-slide-to="1" class=""></li>
+        <li data-target="#newspot-carousel" data-slide-to="2" class=""></li>
+      </ol>
+
+      <% i = 0 %>
+      <!-- 実際の画像の表示処理 -->
+      <div class="carousel-inner">
+        <% @newest_spots_ary.each do |newest_spot| %>
+          <% if i == 0 %>
+            <div class="item active">
+          <% else %>
+            <div class="item">
+          <% end %>
+          <% if newest_spot['photo'+i.to_s] == ""%>
+          <%= image_tag("http://placehold.jp/24/cccccc/ffffff/250x50.png?text=画像が存在しません") %>
+          <% else %>
+            <%= image_tag(url_for(:action => 'getImg', :photo_reference => newest_spot['photo'+i.to_s]),:class => 'center-block')%>
+          <% end %>
+          <div class="carousel-caption"><%= newest_spot['name'+i.to_s] %></div>
+        </div>
+        <% i = i + 1 %>
+        <% end %>
+      </div>
+
+      <!-- 前の画像へ戻るための矢印ポインタ -->
+      <a class="left carousel-control" href="#newspot-carousel" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+      </a>
+
+      <!-- 次の画像へ進むための矢印ポインタ -->
+      <a class="right carousel-control" href="#newspot-carousel" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+      </a>
+    </div>
+    <% else %>
+      <p><データが１件も登録されていません/p>
+    <% end %>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4>みんなのお気に入りスポット</h4>
+  </div>
+  <div class="panel-body">
+    <% if @favorite_spots_ary.count != 0 %>
+    <div id="favorite_spot-carousel" class="carousel slide" data-ride="carousel" >
+
+      <!-- 何枚目かの画像かを表すインディケーター -->
+      <ol class="carousel-indicators">
+        <li data-target="#favorite_spot-carousel" data-slide-to="0" class="active"></li>
+        <li data-target="#favorite_spot-carousel" data-slide-to="1" class=""></li>
+        <li data-target="#favorite_spot-carousel" data-slide-to="2" class=""></li>
+      </ol>
+
+      <% i = 0 %>
+      <!-- 実際の画像の表示処理 -->
+      <div class="carousel-inner">
+        <% @favorite_spots_ary.each do |favorite_spot| %>
+          <% if i == 0 %>
+            <div class="item active">
+          <% else %>
+            <div class="item">
+          <% end %>
+          <% if favorite_spot['photo'+i.to_s] == ""%>
+          <%= image_tag("http://placehold.jp/24/cccccc/ffffff/250x50.png?text=画像が存在しません") %>
+          <% else %>
+            <%= image_tag(url_for(:action => 'getImg', :photo_reference => favorite_spot['photo'+i.to_s]),:class => 'center-block')%>
+          <% end %>
+          <div class="carousel-caption"><%= favorite_spot['name'+i.to_s] %></div>
+        </div>
+        <% i = i + 1 %>
+        <% end %>
+      </div>
+      <!-- 前の画像へ戻るための矢印ポインタ -->
+      <a class="left carousel-control" href="#favorite_spot-carousel" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+      </a>
+
+      <!-- 次の画像へ進むための矢印ポインタ -->
+      <a class="right carousel-control" href="#favorite_spot-carousel" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+      </a>
+    </div>
+    <% else %>
+      <p>データが１件もありません</p>
+    <% end %>
+
+  </div>
+</div>
