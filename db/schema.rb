@@ -55,7 +55,7 @@ ActiveRecord::Schema.define(version: 20171223064614) do
 
   create_table "notifications", force: :cascade do |t|
     t.boolean "read_flg", default: false
-    t.integer "my_user_id"
+    t.integer "user_id"
     t.integer "opponent_user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

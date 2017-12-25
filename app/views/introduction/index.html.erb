@@ -1,9 +1,9 @@
 <% flash_messages %>
+<% @users.each do |user| %>
+<%= user.username %>
+<%= form_for current_user.notifications_of_from_user.build(opponent_user_id: user.id), :url => {:controller => :introduction, :action => :post} do |f| %>
 
-<%= form_tag('/post', :remote => true) do %>
-  <%= label_tag '名前' %>
-  <%= text_field_tag 'name' %><br/>
-  <%= label_tag 'Email' %>
-  <%= text_field_tag 'email' %><br/>
+  <%= f.hidden_field :opponent_user_id %>
   <%= submit_tag '通知を送る' %>
+<% end %>
 <% end %>
