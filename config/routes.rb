@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   omniauth_callbacks: "omniauth_callbacks"}
   get 'home/index'
 
-  get 'home/getImg'
+  get 'home/SpotImg'
 
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)

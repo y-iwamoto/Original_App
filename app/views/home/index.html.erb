@@ -16,10 +16,9 @@
         <li data-target="#newspot-carousel" data-slide-to="2" class=""></li>
       </ol>
 
-      <% i = 0 %>
       <!-- 実際の画像の表示処理 -->
       <div class="carousel-inner">
-        <% @newest_spots_ary.each do |newest_spot| %>
+        <% @newest_spots_ary.each_with_index do |newest_spot,i| %>
           <% if i == 0 %>
             <div class="item active">
           <% else %>
@@ -28,11 +27,10 @@
           <% if newest_spot['photo'+i.to_s] == ""%>
           <%= image_tag("http://placehold.jp/24/cccccc/ffffff/250x50.png?text=画像が存在しません") %>
           <% else %>
-            <%= image_tag(url_for(:action => 'getImg', :photo_reference => newest_spot['photo'+i.to_s]),:class => 'center-block')%>
+            <%= image_tag(url_for(:action => 'SpotImg', :photo_reference => newest_spot['photo'+i.to_s]),:class => 'center-block')%>
           <% end %>
           <div class="carousel-caption"><%= newest_spot['name'+i.to_s] %></div>
         </div>
-        <% i = i + 1 %>
         <% end %>
       </div>
 
@@ -67,10 +65,9 @@
         <li data-target="#favorite_spot-carousel" data-slide-to="2" class=""></li>
       </ol>
 
-      <% i = 0 %>
       <!-- 実際の画像の表示処理 -->
       <div class="carousel-inner">
-        <% @favorite_spots_ary.each do |favorite_spot| %>
+        <% @favorite_spots_ary.each_with_index do |favorite_spot,i| %>
           <% if i == 0 %>
             <div class="item active">
           <% else %>
@@ -79,11 +76,10 @@
           <% if favorite_spot['photo'+i.to_s] == ""%>
           <%= image_tag("http://placehold.jp/24/cccccc/ffffff/250x50.png?text=画像が存在しません") %>
           <% else %>
-            <%= image_tag(url_for(:action => 'getImg', :photo_reference => favorite_spot['photo'+i.to_s]),:class => 'center-block')%>
+            <%= image_tag(url_for(:action => 'SpotImg', :photo_reference => favorite_spot['photo'+i.to_s]),:class => 'center-block')%>
           <% end %>
           <div class="carousel-caption"><%= favorite_spot['name'+i.to_s] %></div>
         </div>
-        <% i = i + 1 %>
         <% end %>
       </div>
       <!-- 前の画像へ戻るための矢印ポインタ -->
