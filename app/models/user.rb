@@ -8,9 +8,9 @@ class User < ApplicationRecord
   has_many :social_profiles
 
   has_many :notifications_of_from_user, foreign_key: "user_id", dependent: :destroy,class_name:"Notification"
-  has_many :notificates_of_from_user, through: :notifications_of_from_user, source: :user
-  has_many :notifications_of_to_user, foreign_key: "opponent_user_id",class_name:"Notification",dependent:   :destroy
-  has_many :notificates_of_to_user, through: :notifications_of_to_user, source: :opponent_user
+  has_many :notificates_of_from_user, through: :notifications_of_from_user, source: :opponent_user
+  has_many :notifications_of_to_user, foreign_key: "opponent_user_id",class_name:"Notification",dependent: :destroy
+  has_many :notificates_of_to_user, through: :notifications_of_to_user, source: :user
 
 
   validates :username, presence: true

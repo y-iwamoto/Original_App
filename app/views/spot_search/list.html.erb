@@ -27,8 +27,7 @@
   </table>
 
   <button type="button" class="btn pull-right btn-lg btn-default">
-    <%= link_to '戻る', spot_search_index_path,:onclick => "
-    location.reload();" %>
+    <%= link_to '戻る', spot_search_index_path,data: {"turbolinks" => false} %>
   </button>
 
 </div>

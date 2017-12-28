@@ -19,7 +19,6 @@
 //= require cocoon
 //= require moment
 //= require fullcalendar
-//= require calendar
 //= require bootstrap-sprockets
 //= require dataTables/jquery.dataTables
 //= require dataTables/bootstrap/3/jquery.dataTables.bootstrap

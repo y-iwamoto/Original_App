@@ -1,2 +1,30 @@
-<h1>Notification#show</h1>
-<p>Find me in app/views/notification/show.html.erb</p>
+<h1>お知らせ詳細</h1>
+
+<button type="button" class="btn pull-right btn-lg btn-default">
+  <%= link_to '戻る', :back,data: {"turbolinks" => false} %>
+</button>
+
+<h2><%= @schedules.title %></h2>
+
+<div class="panel panel-default">
+  <% @schedules.schedule_each_dates.each do |schedule_each_date| %>
+  <div class="panel-heading">
+          <%= schedule_each_date.sche_date.strftime('%Y/%m/%d') %>
+	</div>
+	<div class="panel-body">
+    <% if schedule_each_date.schedule_each_times.count == 0 %>
+      <p>スケジュール時間帯がまだ登録されていません</p>
+    <% end %>
+    <ul class="list-group">
+      <% schedule_each_date.schedule_each_times.each do |schedule_each_time| %>
+        <li class="list-group-item">
+          滞在時間:<%= schedule_each_time.from_time.strftime('%H:%M') %>〜<%= schedule_each_time.to_time.strftime('%H:%M') %>&nbsp;
+          メモ:<%= schedule_each_time.memo %></br>
+          場所:<%= select_tag :place, options_from_collection_for_select(@spots, :id, :name,schedule_each_time.place_id), disabled: true %>&nbsp;
+          <%= link_to '場所を確認する', spot_search_path(schedule_each_time.place_id) %>
+        </li>
+      <% end %>
+    </ul>
+	</div>
+  <% end %>
+</div>

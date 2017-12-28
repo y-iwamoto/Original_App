@@ -2,8 +2,7 @@
 <u><h3 class="text-center"><%= @spot_details.name %></h3></u>
 
 <button type="button" class="btn pull-right btn-lg btn-default">
-  <%= link_to '戻る', spot_search_index_path,:onclick => "
-  location.reload();" %>
+  <%= link_to '戻る', :back,data: {"turbolinks" => false} %>
 </button>
 
 

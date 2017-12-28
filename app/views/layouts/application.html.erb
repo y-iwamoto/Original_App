@@ -14,8 +14,8 @@
 
      <script>
        Pusher.logToConsole = true;
-       var pusher = new Pusher(ENV['PUSHER_ACCESS_KEY'], {
-        cluster: ENV['PUSHER_API_CLUSTER'],
+       var pusher = new Pusher("<%= ENV['PUSHER_ACCESS_KEY'] %>", {
+        cluster: "<%= ENV['PUSHER_API_CLUSTER'] %>",
         encrypted: true
       });
        var channel = pusher.subscribe('user' + <%= current_user.id.to_s %>+ 'channel');

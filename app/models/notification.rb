@@ -1,4 +1,6 @@
 class Notification < ApplicationRecord
-  belongs_to :notifications_of_from_user, class_name: "User"
-  belongs_to :notifications_of_to_user, class_name: "User"
+  belongs_to :user, class_name: "User"
+  belongs_to :opponent_user, class_name: "User"
+  validates :user_id, presence: true
+  validates :opponent_user_id, presence: true
 end

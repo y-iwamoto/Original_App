@@ -1,12 +1,23 @@
 <h2>お知らせ</h2>
+<% flash_messages %>
+<% if @chng_read_flg == true%>
+  <%= link_to "既読の通知を確認",notification_index_path(read_flg: 1) %>
+<% else %>
+  <%= link_to "未読の通知を確認",notification_index_path(read_flg: 0) %>
+<% end %>
  <ul>
    <% @notifications.each do |notification| %>
    <hr>
      <li>
        <p>
-           <%= notification.opponent_user.user.try(:username) %>さんから旅行計画の招待が来ています
-           <%= link_to "確認する" ,:action => "show"  %>
-           <%= link_to "許可しない",:action => "delete", :confirm => "招待を破棄してもよろしいでしょうか？" %>
+           <%= notification.opponent_user.try(:username) %>さんから旅行計画の招待が来ています
+           <%=  link_to "確認する" ,notification_path(notification,params: {user_id: notification.opponent_user.id, schedule_id:notification.content.to_i })   %>
+           <% if notification.read_flg == false %>
+             <%=  link_to "既読にする" ,notification_path(notification, params: {notification_id: notification.id,read_flg:true }), :method => :put  %>
+           <% else %>
+            <%=  link_to "未読にする" ,notification_path(notification, params: {notification_id: notification.id,read_flg:false } ), :method => :put %>
+           <% end %>
+           <%=  link_to "削除する",notification_path(notification, params: {notification_id: notification.id}),:method => :delete, data: { :confirm => "招待を破棄してもよろしいでしょうか？"}  %>
        </p>
      </li>
    <% end %>
