@@ -1,11 +1,14 @@
 Rails.application.routes.draw do
 
+  resources :notification, only:[:show,:update,:destroy,:index]
+
   devise_for :users, controllers: { registrations: 'registrations' ,
   omniauth_callbacks: "omniauth_callbacks"}
   get 'home/index'
 
   get 'home/SpotImg'
-
+  post 'post' => 'introduction#post'
+  resources :introduction, only:[:index]
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   root to: "home#index"

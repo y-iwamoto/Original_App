@@ -45,7 +45,7 @@
       </strong>
     <% end %>
       <strong class="sonota_btns">
-        <%= link_to  travel_planning_date_index_path(:schedule_id => @schedule_each_date.schedule_id) do  %>
+        <%= link_to  travel_planning_date_index_path(:schedule_id => @schedule_each_date.schedule_id),data: {"turbolinks" => false} do  %>
           <i class="glyphicon glyphicon-step-backward" aria-hidden="true">(戻る)</i>
         <% end %>
       </strong>
