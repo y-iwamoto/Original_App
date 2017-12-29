@@ -13,7 +13,7 @@ class IntroductionController < ApplicationController
         flash[:success] = "通知を送信しました"
         redirect_to introduction_index_path
       else
-        flash[:error] = "通知送信に失敗しました"
+        logger.error("通知送信に失敗しました")
         redirect_to introduction_index_path
       end
     else
