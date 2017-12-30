@@ -1,15 +1,22 @@
 ActiveAdmin.register User do
-# See permitted parameters documentation:
-# https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-#
-# permit_params :list, :of, :attributes, :on, :model
-#
-# or
-#
-# permit_params do
-#   permitted = [:permitted, :attributes]
-#   permitted << :other if params[:action] == 'create' && current_user.admin?
-#   permitted
-# end
-
+  config.per_page = 10
+  actions :index, :show
+# 一覧ページの検索条件
+filter :email
+filter :username
+# 一覧ページ
+  index do
+    column :id
+    column :email
+    column :username
+    actions
+  end
+  # 詳細ページ
+  show do
+    attributes_table do
+      row :id
+      row :email
+      row :username
+    end
+  end
 end

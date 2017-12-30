@@ -10,8 +10,14 @@ class NotificationController < ApplicationController
   end
 
   def show
-    @spots = Spot.where(user_id:params[:user_id])
-    @schedules = Schedule.includes(:schedule_each_dates => :schedule_each_times).find_by(user_id:params[:user_id] ,id:params[:schedule_id])
+    #招待の通知内容を確認する場合
+    if params[:content] == nil
+      @spots = Spot.where(user_id:params[:user_id])
+      @schedules = Schedule.includes(:schedule_each_dates => :schedule_each_times).find_by(user_id:params[:user_id] ,id:params[:schedule_id])
+    #通常の通知内容を確認する場合
+    else
+      @content = params[:content]
+    end
   end
   def update
     notification = current_user.notifications_of_from_user.find(params[:notification_id])
