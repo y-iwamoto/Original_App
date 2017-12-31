@@ -10,8 +10,13 @@
    <hr>
      <li>
        <p>
+         <% if notification.introduce_flg == false %>
+          管理者からの通知が届いています
+          <%=  link_to "確認する" ,notification_path(notification,params: {content:notification.content })   %>
+         <% else %>
            <%= notification.opponent_user.try(:username) %>さんから旅行計画の招待が来ています
            <%=  link_to "確認する" ,notification_path(notification,params: {user_id: notification.opponent_user.id, schedule_id:notification.content.to_i })   %>
+         <% end %>
            <% if notification.read_flg == false %>
              <%=  link_to "既読にする" ,notification_path(notification, params: {notification_id: notification.id,read_flg:true }), :method => :put  %>
            <% else %>

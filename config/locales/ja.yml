@@ -8,6 +8,10 @@ ja:
       schedule_each_date: スケジュール日付別
       schedule_each_time: スケジュール時間帯別
       user: ユーザ
+      schedule: スケジュール
+      spot: スポット
+      social_profile: プロファイル
+      notification: 通知
     attributes:
       admin_user:
         email: メールアドレス
@@ -26,6 +30,39 @@ ja:
         updated_at: 更新日時
       user:
         username: 名前
+      schedule:
+        title: タイトル
+        memo: メモ
+        from_date: 滞在開始日
+        to_date: 滞在終了日
+        user_id: ユーザ
+      schedule_each_date:
+        sche_date: スケジュール日付
+        schedule_id: 対象スケジュール名
+        user_id: ユーザ
+      schedule_each_time:
+        from_time: 滞在開始時間
+        to_time: 滞在終了時間
+        memo: メモ
+        schedule_id: 対象スケジュール名
+        schedule_each_date_id: スケジュール日付
+        user_id: ユーザ
+        place_id: スポット
+      spot:
+        name: スポット名
+        address: 住所
+        place_id: GooglePlaceID
+        user_id: ユーザ
+        favorite_flg: お気に入りフラグ
+      social_profile:
+        provider: SNS名
+        user_id: ユーザ
+      notification:
+        content: 内容
+        read_flg: 既読フラグ
+        introduce_flg: 招待フラグ
+        user_id: 送信元ユーザ
+        opponent_user_id: 送信先ユーザ
     errors:
       messages:
         record_invalid: "バリデーションに失敗しました: %{errors}"

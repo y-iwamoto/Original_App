@@ -1,16 +1,41 @@
 ActiveAdmin.register Schedule do
-# See permitted parameters documentation:
-# https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-#
-# permit_params :list, :of, :attributes, :on, :model
-#
-# or
-#
-# permit_params do
-#   permitted = [:permitted, :attributes]
-#   permitted << :other if params[:action] == 'create' && current_user.admin?
-#   permitted
-# end
-  permit_params :user_id, :from_date, :to_date, :title, :memo
+ config.per_page = 10
+ actions :index, :show
+# 一覧ページの検索条件
+filter :user_id, label: 'ユーザ', as: :select, collection: User.all.map { |a| [a.username, a.id] }
+filter :from_date
+filter :to_date
+filter :title
+filter :memo
+remove_filter :created_at, :updated_at,:schedule_each_dates
+# 一覧ページ
+  index do
+    column :id
+    column :title
+    column :memo
+    column :from_date
+    column :to_date
+    column :user_id do |schedule|
+      if schedule.user_id != nil
+        User.find(schedule.user_id).username
+      end
+    end
+    actions
+  end
+  # 詳細ページ
+  show do
+    attributes_table do
+      row :id
+      row :title
+      row :memo
+      row :from_date
+      row :to_date
+      row :user_id do |schedule|
+        if schedule.user_id != nil
+          User.find(schedule.user_id).username
+        end
+      end
+    end
+  end
 
 end

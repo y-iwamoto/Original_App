@@ -1,0 +1,13 @@
+<%= form_tag({ action: :transmit }, { method: :post }) do %>
+<div class="field">
+  <%= label_tag 'ユーザ' %>
+  <%= select_tag('user',options_from_collection_for_select(@users,:id,:username), {class: 'form-control'}) %><br/>
+</div>
+<div class="field">
+  <%= label_tag '内容'  %>
+  <%= text_field_tag :text_field,'' ,class:"form-control" %><br/>
+</div>
+<div class="actions">
+  <%= submit_tag '通知を送る', class: 'btn btn-primary' %>
+</div>
+<% end %>
