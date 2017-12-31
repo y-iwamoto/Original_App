@@ -20,6 +20,10 @@ Rails.application.routes.draw do
 
   resources :travel_planning, only:[:create,:new,:edit,:update,:destroy,:index]
   resources :travel_planning_date, only:[:index]
+  get 'travel_planning_date/upload' => 'travel_planning_date#upload_prepare'
+  post 'travel_planning_date/upload' =>  'travel_planning_date#upload'
+  patch 'travel_planning_date/upload' =>  'travel_planning_date#upload'
+  get 'travel_planning_date/upload_prepare'
   resources :travel_planning_time, only:[:show,:update]do
     collection do
       get :show_spot_roting

@@ -15,7 +15,7 @@
       <% end %>
     </td>
     <td class="">
-      <%= link_to  travel_planning_date_index_path(:schedule_id => schedule.id) do  %>
+      <%= link_to  travel_planning_date_index_path(:schedule_id => schedule.id),data: {"turbolinks" => false} do  %>
         <i class="glyphicon glyphicon-calendar" aria-hidden="true"></i>
       <% end %>
     </td>

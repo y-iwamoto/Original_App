@@ -25,3 +25,4 @@ config/environments/*.local.yml
 # .gitignore
 .env
 .DS_Store
+/public

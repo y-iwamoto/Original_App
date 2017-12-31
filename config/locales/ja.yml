@@ -12,6 +12,7 @@ ja:
       spot: スポット
       social_profile: プロファイル
       notification: 通知
+      thumbnail: 画像
     attributes:
       admin_user:
         email: メールアドレス
@@ -63,6 +64,10 @@ ja:
         introduce_flg: 招待フラグ
         user_id: 送信元ユーザ
         opponent_user_id: 送信先ユーザ
+      thumbnail:
+        image: 画像
+      schedule/thumbnails:
+        image: 画像
     errors:
       messages:
         record_invalid: "バリデーションに失敗しました: %{errors}"
@@ -171,6 +176,7 @@ ja:
   errors:
     format: "%{attribute}%{message}"
     messages:
+      max_size_error: "画像ファイルのサイズが大きすぎます"
       accepted: を受諾してください
       blank: を入力してください
       present: は入力しないでください
