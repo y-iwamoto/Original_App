@@ -15,9 +15,9 @@ if ActiveRecord::Base.connection.table_exists? 'schedule_each_time'
   #   permitted
   # end
   # 一覧ページの検索条件
-  # filter :user_id, label: 'ユーザ', as: :select, collection: -> {User.all.map { |a| [a.username, a.id] }}
-  # filter :schedule_id, label: '対象スケジュール', as: :select, collection: -> {Schedule.all.map { |a| [a.title, a.id] }}
-  # filter :place_id, as: :select, collection: Spot.all.map { |a| [a.name, a.id] }
+  filter :user_id, label: 'ユーザ', as: :select, collection: -> {User.all.map { |a| [a.username, a.id] }}
+  filter :schedule_id, label: '対象スケジュール', as: :select, collection: -> {Schedule.all.map { |a| [a.title, a.id] }}
+  filter :place_id, as: :select, collection:  -> {Spot.all.map { |a| [a.name, a.id] }}
   filter :memo
   remove_filter :created_at, :updated_at,:schedule_each_date_id
   # 一覧ページ

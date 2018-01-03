@@ -3,7 +3,7 @@ if ActiveRecord::Base.connection.table_exists? 'schedule'
    config.per_page = 10
    actions :index, :show
   # 一覧ページの検索条件
-  # filter :user_id, label: 'ユーザ', as: :select, collection: -> {User.all.map { |a| [a.username, a.id] }}
+  filter :user_id, label: 'ユーザ', as: :select, collection: -> {User.all.map { |a| [a.username, a.id] }}
   filter :from_date
   filter :to_date
   filter :title
