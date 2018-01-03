@@ -1,35 +1,31 @@
 <header class="navbar navbar-fixed-top navbar-inverse">
    <div class="container">
-     <nav>
-       <ul class="nav navbar-nav navbar-left">
-         <li><%= link_to "旅行計画作成",    travel_planning_index_path %></li>
-       </ul>
-       <ul class="nav navbar-nav navbar-left">
-         <!-- あとでユーザIDの部分を変更 -->
-         <li><%= link_to "スポット検索",    spot_search_index_path(select_link_disp: false),data: {"turbolinks" => false} %></li>
-       </ul>
-       <ul class="nav navbar-nav navbar-left">
-         <li><%= link_to 'プロフィール変更', edit_user_registration_path %></li>
-       </ul>
-       <ul class="nav navbar-nav navbar-left">
-         <li><%= link_to 'お気に入りスポット', favorite_spot_list_spot_search_index_path %></li>
-       </ul>
-       <ul class="nav navbar-nav navbar-left">
-         <li><%= link_to '招待', introduction_index_path %></li>
-       </ul>
-       <ul class="nav navbar-nav navbar-left">
-         <li>
-            <%= link_to notification_index_path do %>
-             <i class="fa fa-bell"><%= @notifications_count %></i>
-           <% end %>
-          </li>
-       </ul>
-       <ul class="nav navbar-nav navbar-left">
-         <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
-       </ul>
-     </nav>
-     <ul class="nav navbar-nav navbar-right">
-       <li><%= link_to "Travel Planning", travel_planning_index_path, id: "logo" %></li>
-     </ul>
+     <div class="navbar-header">
+       <%= link_to "Travel Planning", travel_planning_index_path, id: "logo",class: "navbar-brand" %>
+       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mymenu">
+         <span class="sr-only">Toggle navigation</span>
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+       </button>
+      </div>
+      <div class="collapse navbar-collapse" id="mymenu">
+        <ul class="nav navbar-nav navbar-right">
+          <li><%= link_to "旅行計画", travel_planning_index_path %></li>
+          <li><%= link_to "スポット", spot_search_index_path(select_link_disp: false),data: {"turbolinks" => false} %></li>
+          <li><%= link_to '設定', edit_user_registration_path %></li>
+          <li><%= link_to 'お気に入り', favorite_spot_list_spot_search_index_path %></li>
+          <li><%= link_to '招待', introduction_index_path %></li>
+          <li>
+             <%= link_to notification_index_path do %>
+              <i class="fa fa-bell"><%= @notifications_count %></i>
+            <% end %>
+           </li>
+          <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
+        </ul>
+      </div>
    </div>
  </header>

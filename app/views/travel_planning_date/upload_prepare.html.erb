@@ -1,22 +1,24 @@
 <% flash_messages %>
 <% if @schedule.errors.any? %>
-<div class="alert alert-danger">
+<div class="alert alert-danger panel_top">
   <% @schedule.errors.full_messages.each do |msg| %>
     <li><%= msg %></li>
   <% end %>
 </div>
 <% end %>
-<div class="panel panel-default">
+<div class="panel panel-info panel_top">
   <div class="panel-heading">
     <h4>旅行画像登録</h4>
   </div>
   <div class="panel-body">
     <%= form_for(@schedule,:url => {:controller => :travel_planning_date,:action => :upload}, :html => {:multipart => true} ) do |f| %>
+    <ul class="list-group">
       <div id="detail-association-insertion-point">
         <%= f.fields_for :thumbnails do |thumbnail| %>
-            <%= render 'thumbnail_fields', :f => thumbnail ,schedule: @schedule %>
+          <%= render 'thumbnail_fields', :f => thumbnail ,schedule: @schedule %>
         <% end %>
       </div>
+    </ul>
       <%= link_to_add_association "画像を新規追加",f, :thumbnails,
         partial: 'thumbnail_fields',
         data: { association_insertion_method: 'append',

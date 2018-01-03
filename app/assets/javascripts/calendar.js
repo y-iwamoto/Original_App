@@ -40,6 +40,7 @@ $(document).on('turbolinks:load',function() {
       week:     '週',
       day:      '日'
     },
+    defaultDate: gon.firstDay,
     height: 600,                           // 高さ
     defaultView: 'month',             // 初期表示ビュー
     eventLimit: true,                      // allow "more" link when too many events

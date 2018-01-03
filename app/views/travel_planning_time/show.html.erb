@@ -1,8 +1,3 @@
-<div class="row">
-  <aside class="col-md-4">
-    <!-- サイドパネル設置予定 -->
-  </aside>
-  <div class="col-md-8">
     <% flash_messages %>
       <% if @schedule_each_date.errors.any? %>
       <div id="error_explanation">
@@ -14,40 +9,38 @@
         </ul>
       </div>
     <% end %>
-    <div class="row">
-      <div class="col-md-4 col-md-push-4 text-center"><h4>スケジュール時間帯別作成</h4></div>
-    </div>
-    <% i = 1 %>
-    <%= form_for @schedule_each_date, :url => {:controller => :travel_planning_time, :action => :update} do |f| %>
-      <div class="field">
-        <ol>
-          <%= f.fields_for :schedule_each_times do |schedule_each_time| %>
-            <li>
-              <%= render 'schedule_each_time_fields', :f => schedule_each_time,schedule_each_date: @schedule_each_date ,
-              schedule_each_time: schedule_each_time %>
-            </li>
-            <% i += 1 %>
-            <strong class="add_fields">
-            <% if i ==  @schedule_each_date.schedule_each_times.count + 1 %>
-                <%= link_to_add_association "スケジュールを新規追加",f, :schedule_each_times  %>
-            <% end %>
-          </strong>
-          <% end %>
-        </ol>
-        <div class="sonota_btns">
-          <%= f.submit "登録する" %>
-        </div>
+    <div class="panel panel-info panel_top">
+      <div class="panel-heading">
+        <div class="text-center"><h4>スケジュール時間帯別作成</h4></div>
       </div>
-    <% end %>
-    <% if @schedule_each_date.schedule_each_times.count >= 2 %>
-      <strong class="sonota_btns">
-        <%= link_to 'ルートを地図で確認する', show_spot_roting_travel_planning_time_index_path(id: @schedule_each_date.id) %>
-      </strong>
-    <% end %>
-      <strong class="sonota_btns">
-        <%= link_to  travel_planning_date_index_path(:schedule_id => @schedule_each_date.schedule_id),data: {"turbolinks" => false} do  %>
-          <i class="glyphicon glyphicon-step-backward" aria-hidden="true">(戻る)</i>
+      <div class="panel-body">
+        <% i = 1 %>
+        <%= form_for @schedule_each_date, :url => {:controller => :travel_planning_time, :action => :update} do |f| %>
+          <div class="field">
+            <ol>
+              <%= f.fields_for :schedule_each_times do |schedule_each_time| %>
+                  <%= render 'schedule_each_time_fields', :f => schedule_each_time,schedule_each_date: @schedule_each_date ,
+                  schedule_each_time: schedule_each_time %>
+                <% i += 1 %>
+                <strong class="add_fields">
+                <% if i ==  @schedule_each_date.schedule_each_times.count + 1 %>
+                    <%= link_to_add_association "スケジュールを新規追加",f, :schedule_each_times  %>
+                <% end %>
+              </strong>
+              <% end %>
+            </ol>
+            <div class="sonota_btns">
+              <%= f.submit "登録する" %>
+            </div>
+          </div>
         <% end %>
-      </strong>
-  </div>
-</div>
+      </div>
+    </div>
+    <% if @schedule_each_date.schedule_each_times.count >= 2 %>
+      <button type="button" class="btn btn-lg btn-default btn_left_adjust">
+        <%= link_to 'ルートを地図で確認する', show_spot_roting_travel_planning_time_index_path(id: @schedule_each_date.id) %>
+      </button>
+    <% end %>
+    <button type="button" class="btn btn-lg btn-default btn_left_adjust">
+      <%= link_to "戻る", travel_planning_date_index_path(:schedule_id => @schedule_each_date.schedule_id),data: {"turbolinks" => false} %>
+    </button>

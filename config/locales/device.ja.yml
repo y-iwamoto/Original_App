@@ -92,7 +92,7 @@ ja:
       not_locked: "は凍結されていません"
 #      not_locked: "was not locked"
       not_saved:
-        one: "1 つのエラーにより %{resource} は登録されませんでした"
+        one: "%{resource}の登録または更新に失敗しました"
 #        one: "1 error prohibited this %{resource} from being saved:"
-        other: "%{count} つのエラーにより %{resource} は登録されませんでした"
+        other: "%{resource}の登録または更新に失敗しました"
 #        other: "%{count} errors prohibited this %{resource} from being saved:"

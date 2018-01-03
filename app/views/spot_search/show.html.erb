@@ -1,39 +1,55 @@
-<h1 class="text-center">スポット詳細</h1>
-<u><h3 class="text-center"><%= @spot_details.name %></h3></u>
 
+<div class="panel panel-info panel_top">
+  <div class="panel-heading">
+    <h1 class="text-center">スポット詳細</h1>
+  </div>
+  <div class="panel-body">
+    <ul class="list-group">
+      <li class="list-group-item">
+        <u><h3 class="text-center"><%= @spot_details.name %></h3></u>
+      </li>
+      <li class="list-group-item">
+        <div id="map" class="center-block" style="width: auto; height: 400px;"></div>
+      </li>
+      <li class="list-group-item">
+      <% @arr.each do |photo_reference| %>
+        <%= image_tag(url_for(:action => 'getImg', :photo_reference => photo_reference), :size => '100x100')%></td>
+      <% end %>
+      </li>
+    </ul>
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>住所</th>
+          <th>営業時間</th>
+          <th>Tel</th>
+          <th>サイトURL</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= @formatted_address %></td>
+          <td>
+            <% if @spot_details.opening_hours != nil %>
+                  <%= @spot_details.opening_hours["periods"][0]["open"]["time"].insert(2, ":") %>〜<%= @spot_details.opening_hours["periods"][0]["close"]["time"].insert(2, ":") if @spot_details.opening_hours["periods"][0]["close"] != nil %>
+            <% end %>
+          </td>
+          <td><%= @spot_details.formatted_phone_number %></td>
+          <td><%= link_to @spot_details.website,@spot_details.website, :target=>["_blank"] if @spot_details.website != nil%></td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
 <button type="button" class="btn pull-right btn-lg btn-default">
   <%= link_to '戻る', :back,data: {"turbolinks" => false} %>
 </button>
 
 
-<div id="map" class="center-block" style="width: 800px; height: 400px;"></div>
 
-<% @arr.each do |photo_reference| %>
-  <%= image_tag(url_for(:action => 'getImg', :photo_reference => photo_reference), :size => '100x100')%></td>
-<% end %>
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>住所</th>
-      <th>営業時間</th>
-      <th>Tel</th>
-      <th>サイトURL</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><%= @formatted_address %></td>
-      <td>
-        <% if @spot_details.opening_hours != nil %>
-              <%= @spot_details.opening_hours["periods"][0]["open"]["time"].insert(2, ":") %>〜<%= @spot_details.opening_hours["periods"][0]["close"]["time"].insert(2, ":") if @spot_details.opening_hours["periods"][0]["close"] != nil %>
-        <% end %>
-      </td>
-      <td><%= @spot_details.formatted_phone_number %></td>
-      <td><%= link_to @spot_details.website,@spot_details.website, :target=>["_blank"] if @spot_details.website != nil%></td>
-    </tr>
-  </tbody>
-</table>
+
 <script>
   handler = Gmaps.build('Google');
   handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
