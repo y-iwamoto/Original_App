@@ -20,7 +20,7 @@ set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets public/uploads}
 set :keep_releases, 5
 
 # Rubyのバージョン
-set :rbenv_ruby, '2.3.0'
+set :rbenv_ruby, '2.4.2'
 set :rbenv_type, :system
 
 #出力するログのレベル。
