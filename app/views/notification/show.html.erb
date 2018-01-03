@@ -37,5 +37,15 @@
       </ul>
   	</div>
     <% end %>
+    <% if @schedules.thumbnails.count != 0 %>
+      <div class="panel-footer">
+      <h4>画像</h4>
+      <% @schedules.thumbnails.each do |thumbnail| %>
+      <% if thumbnail.image? %>
+            <%= image_tag thumbnail.image.url %>
+          <% end %>
+      <% end %>
+    </div>
+    <% end %>
   </div>
 <% end %>

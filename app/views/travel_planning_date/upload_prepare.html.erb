@@ -1,0 +1,42 @@
+<% flash_messages %>
+<% if @schedule.errors.any? %>
+<div class="alert alert-danger">
+  <% @schedule.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+  <% end %>
+</div>
+<% end %>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4>旅行画像登録</h4>
+  </div>
+  <div class="panel-body">
+    <%= form_for(@schedule,:url => {:controller => :travel_planning_date,:action => :upload}, :html => {:multipart => true} ) do |f| %>
+      <div id="detail-association-insertion-point">
+        <%= f.fields_for :thumbnails do |thumbnail| %>
+            <%= render 'thumbnail_fields', :f => thumbnail ,schedule: @schedule %>
+        <% end %>
+      </div>
+      <%= link_to_add_association "画像を新規追加",f, :thumbnails,
+        partial: 'thumbnail_fields',
+        data: { association_insertion_method: 'append',
+        association_insertion_node: '#detail-association-insertion-point' } %>
+       <%= f.submit "登録する" %>
+    <% end %>
+  </div>
+</div>
+
+<button type="button" class="btn btn-default">
+  <%= link_to '戻る',travel_planning_date_index_path(:schedule_id => @schedule.id),data: {"turbolinks" => false} %>
+</button>
+
+<h4>登録した画像</h4>
+<% if @schedule.thumbnails.count != 0%>
+  <% @schedule.thumbnails.each do |thumbnail| %>
+    <% if thumbnail.image? %>
+      <%= image_tag thumbnail.image.url %>
+    <% end %>
+  <% end %>
+<% else %>
+  <p>１件も登録がありません</p>
+<% end %>
