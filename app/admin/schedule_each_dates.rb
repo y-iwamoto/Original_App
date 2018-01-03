@@ -1,5 +1,4 @@
-if ActiveRecord::Base.connection.table_exists? 'schedule_each_date'
-  ActiveAdmin.register ScheduleEachDate do
+ActiveAdmin.register ScheduleEachDate do
   # See permitted parameters documentation:
   config.per_page = 10
   actions :index, :show
@@ -15,8 +14,8 @@ if ActiveRecord::Base.connection.table_exists? 'schedule_each_date'
   #   permitted
   # end
   # 一覧ページの検索条件
-  filter :user_id, label: 'ユーザ', as: :select, collection: -> {User.all.map { |a| [a.username, a.id] }}
-  filter :schedule_id, label: '対象スケジュール', as: :select, collection: -> {Schedule.all.map { |a| [a.title, a.id] }}
+  filter :user_id, label: 'ユーザ', as: :select, collection: User.all.map { |a| [a.username, a.id] }
+  filter :schedule_id, label: '対象スケジュール', as: :select, collection: Schedule.all.map { |a| [a.title, a.id] }
   filter :sche_date
   remove_filter :created_at, :updated_at,:schedule_each_times
   # 一覧ページ
@@ -60,4 +59,3 @@ if ActiveRecord::Base.connection.table_exists? 'schedule_each_date'
       end
     end
   end
-end

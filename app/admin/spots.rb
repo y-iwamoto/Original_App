@@ -1,9 +1,8 @@
-if ActiveRecord::Base.connection.table_exists? 'spot'
-  ActiveAdmin.register Spot do
+ ActiveAdmin.register Spot do
     config.per_page = 10
     actions :index, :show
   #一覧ページの検索条件
-  filter :user_id, label: 'ユーザ', as: :select, collection: -> {User.all.map { |a| [a.username, a.id] }}
+  filter :user_id, label: 'ユーザ', as: :select, collection: User.all.map { |a| [a.username, a.id] }
   filter :name
   filter :favorite_flg
   remove_filter :created_at, :updated_at,:latitude,:longitude,:address
@@ -37,4 +36,3 @@ if ActiveRecord::Base.connection.table_exists? 'spot'
       end
     end
   end
-end

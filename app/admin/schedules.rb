@@ -1,5 +1,4 @@
-if ActiveRecord::Base.connection.table_exists? 'schedules'
-  ActiveAdmin.register Schedule do
+ActiveAdmin.register Schedule do
    config.per_page = 10
    actions :index, :show
   # 一覧ページの検索条件
@@ -39,5 +38,4 @@ if ActiveRecord::Base.connection.table_exists? 'schedules'
       end
     end
 
-  end
 end
