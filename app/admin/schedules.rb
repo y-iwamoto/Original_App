@@ -1,4 +1,4 @@
-if ActiveRecord::Base.connection.table_exists? 'schedule'
+if ActiveRecord::Base.connection.table_exists? 'schedules'
   ActiveAdmin.register Schedule do
    config.per_page = 10
    actions :index, :show
