@@ -1,6 +1,6 @@
 class SpotSearchController < ApplicationController
   before_action :set_spot, only: [:show, :destroy, :select,:favorite_create]
-  PAGEING_NUM = 2
+  PAGEING_NUM = 10
   def index
     #時間帯別の場所名を選択するリンクから来た場合は、選択ボタンを表示させるが、
     #ヘッダーから遷移して来た場合は表示させない

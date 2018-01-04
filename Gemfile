@@ -70,6 +70,8 @@ gem 'pusher'
 gem 'unicorn'
 gem 'therubyracer', platforms: :ruby
 
+gem 'gon'
+
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'better_errors'

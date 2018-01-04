@@ -1,5 +1,9 @@
 <div class="col-md-12">
-  <h1>スポット検索結果</h1>
+  <div class="panel panel-info panel_top">
+    <div class="panel-heading">
+      <h4>スポット検索結果</h4>
+    </div>
+  </div>
   <table id = "spots" class="table table-striped table-bordered">
     <thead>
       <tr>
@@ -11,15 +15,13 @@
     <tbody>
       <% @spots.each do |spot| %>
         <tr>
-          <td><%= spot.name %></td>
-          <td><%= spot.formatted_address %></td>
-          <td><%= link_to( '登録', spot_search_index_path( :spot => { :name      => spot.name,
-                                                                 :latitude  => spot.lat,
-                                                                 :longitude => spot.lng,
-                                                                 :address   => spot.formatted_address,
-                                                                 :place_id   => spot.place_id,
-                                                                 :user_id   => current_user.id,
-                                                                 :favorite_flg   => false} ),:method => 'post' ) %>
+          <td style="width:40%"><%= spot.name %></td>
+          <td style="width:50%"><%= spot.formatted_address %></td>
+          <td class = "text-center" style="width:10%"><%= link_to( '登録', spot_search_index_path( :spot => {
+         :name => spot.name,:latitude  => spot.lat, :longitude => spot.lng,
+         :address   => spot.formatted_address, :place_id   => spot.place_id,
+         :user_id   => current_user.id,
+         :favorite_flg   => false} ),:method => 'post' ) %>
           </td>
         </tr>
       <% end %>

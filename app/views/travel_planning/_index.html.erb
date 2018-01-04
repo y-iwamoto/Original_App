@@ -1,20 +1,20 @@
 <% if @schedules.count != 0%>
-<table class="table table-striped table-hover">
+<table class="table table-striped table-hover" style="table-layout:fixed;">
 <% @schedules.each do |schedule| %>
   <tr>
-    <td class="">タイトル： <%= schedule.title %></td>
-    <td class="">日程：<%= schedule.from_date %>〜<%= schedule.to_date %></td>
-    <td class="">
+    <td style="width:35%;">タイトル： <%= schedule.title %></td>
+    <td style="width:35%;">日程：<%= schedule.from_date %>〜<%= schedule.to_date %></td>
+    <td style="width:10%;">
       <%= link_to  edit_travel_planning_path(schedule), remote: true do  %>
         <i class="glyphicon glyphicon-pencil" aria-hidden="true"></i>
       <% end %>
     </td>
-    <td class="">
+    <td style="width:10%;">
       <%= link_to travel_planning_path(schedule), method: :delete, data: { confirm: '削除してよろしいでしょうか?' }  do   %>
         <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
       <% end %>
     </td>
-    <td class="">
+    <td style="width:10%;">
       <%= link_to  travel_planning_date_index_path(:schedule_id => schedule.id),data: {"turbolinks" => false} do  %>
         <i class="glyphicon glyphicon-calendar" aria-hidden="true"></i>
       <% end %>

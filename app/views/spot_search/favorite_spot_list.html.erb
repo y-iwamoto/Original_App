@@ -1,23 +1,29 @@
-<h4>お気に入りスポット</h4>
-<% params[:page] == nil ? i = 1 : i = 1 + (params[:page].to_i - 1) * @pageing_num %>
-<% if @favorite_spots_ary.count != 0 %>
-	<% @favorite_spots_ary.each do |favorite_spot| %>
-	<div class="media">
-		<a class="media-left" href="#">
-			<% if favorite_spot["photo"+i.to_s] == ""%>
-			<%= image_tag("http://placehold.jp/24/cccccc/ffffff/250x50.png?text=画像なし", :size => '100x100') %>
-			<% else %>
-				<%= image_tag(url_for(:action => 'getImg', :photo_reference => favorite_spot["photo"+i.to_s]), :size => '100x100')%>
-			<% end %>
-		</a>
-		<div class="media-body">
-			<h4 class="media-heading"><%= favorite_spot["name"+i.to_s]%></h4>
-			<%= favorite_spot["address"+i.to_s]%>
+<div class="panel panel-info panel_top">
+  <div class="panel-heading">
+    <h4>お気に入りスポット</h4>
+  </div>
+	<div class="panel-body">
+	<% params[:page] == nil ? i = 1 : i = 1 + (params[:page].to_i - 1) * @pageing_num %>
+	<% if @favorite_spots_ary.count != 0 %>
+		<% @favorite_spots_ary.each do |favorite_spot| %>
+		<div class="media">
+			<a class="media-left" href="#">
+				<% if favorite_spot["photo"+i.to_s] == ""%>
+				<%= image_tag("http://placehold.jp/24/cccccc/ffffff/250x50.png?text=画像なし", :size => '100x100') %>
+				<% else %>
+					<%= image_tag(url_for(:action => 'getImg', :photo_reference => favorite_spot["photo"+i.to_s]), :size => '100x100')%>
+				<% end %>
+			</a>
+			<div class="media-body">
+				<h4 class="media-heading"><%= favorite_spot["name"+i.to_s]%></h4>
+				<%= favorite_spot["address"+i.to_s]%>
+			</div>
 		</div>
-	</div>
-	<% i = i+1 %>
+		<% i = i+1 %>
+		<% end %>
+	<% else %>
+		<p>１件もお気に入り登録がされていません</p>
 	<% end %>
-<% else %>
-	<p>１件もお気に入り登録がされていません</p>
-<% end %>
+	</div>
+</div>
 <%= paginate @favorite_spots_ary %>

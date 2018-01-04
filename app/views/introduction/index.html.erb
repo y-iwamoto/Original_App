@@ -1,24 +1,36 @@
 <% flash_messages %>
-<div class="panel panel-default panel_top">
+<div class="panel panel-info panel_top">
 	<div class="panel-heading">
-		<h2>招待</h2>
+		<h4>招待</h4>
 	</div>
 	<div class="panel-body">
   <% if @schedules.count == 0%>
     <p>招待用のスケジュールが１件も登録されていません</p>
   <% else %>
     <%= form_tag('/post') do %>
-    <div class="field">
-       <%= label_tag '名前' %>&nbsp;&nbsp;
-       <%= text_field_tag 'name' %>
+    <div class="form-group">
+			<div class="row">
+				<div class="col-sm-12">
+					<%= label_tag '名前' %>
+					<%= text_field_tag 'name' %>
+				</div>
+			</div>
     </div>
-    <div class="field">
-      <%= label_tag 'Email' %>
-      <%= text_field_tag 'email' %>
+		<div class="form-group">
+			<div class="row">
+				<div class="col-sm-12">
+					<%= label_tag 'Email' %>
+					<%= text_field_tag 'email' %>
+				</div>
+			</div>
     </div>
-    <div class="field">
-      <%= label_tag 'スケジュール' %>
-      <%= select_tag('schedule',options_from_collection_for_select(@schedules,:id,:title)) %><br/>
+		<div class="form-group">
+			<div class="row">
+				<div class="col-sm-12">
+					<%= label_tag 'スケジュール' %>
+					<%= select_tag('schedule',options_from_collection_for_select(@schedules,:id,:title)) %>
+				</div>
+			</div>
     </div>
     <div class="actions">
       <%= submit_tag '通知を送る', class: 'btn btn-primary' %>

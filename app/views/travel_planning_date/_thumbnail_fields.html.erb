@@ -1,11 +1,12 @@
 <div class='nested-fields'>
-  <div class="field">
-    <%= f.label :image %>
-    <%= f.file_field :image %>
-    <%= f.hidden_field :image_cache %>
-  </div>
-  <%= f.hidden_field :user_id, :value => @schedule.user_id %>
-  <%= f.hidden_field :schedule_id, :value => @schedule.id %>
-  <%= hidden_field_tag :schedule_id, @schedule.id  %>
-  <%= link_to_remove_association "画像を削除する", f %>
+  <li class="list-group-item">
+    <div class="field">
+      <%= f.file_field :image %>
+      <%= f.hidden_field :image_cache %>
+    </div>
+    <%= f.hidden_field :user_id, :value => @schedule.user_id %>
+    <%= f.hidden_field :schedule_id, :value => @schedule.id %>
+    <%= hidden_field_tag :schedule_id, @schedule.id  %>
+    <%= link_to_remove_association "画像を削除する", f %>
+  </li>
 </div>

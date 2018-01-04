@@ -1,26 +1,45 @@
-<h2>ログイン画面</h2>
-
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+<div class="panel_top">
   <% flash_messages %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
-  </div>
+</div>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
+<div class="panel panel-info panel_top">
+  <div class="panel-heading">
+    <h4>ログイン画面</h4>
   </div>
+  <div class="panel-body">
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <div class="form-group">
+      <div class="row">
+        <div class="col-sm-2">
+          <%= f.label :email %>
+        </div>
+        <div class="col-sm-10">
+          <%= f.email_field :email, autofocus: true, class: "form-control" %>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="row">
+        <div class="col-sm-2">
+          <%= f.label :password %>
+        </div>
+        <div class="col-sm-10">
+          <%= f.password_field :password, autocomplete: "off" , class: "form-control"%>
+        </div>
+      </div>
+    </div>
 
-  <div class="actions">
-    <%= f.submit "ログイン", class: 'btn btn-default login_icon' %>
+      <div class="actions">
+        <%= f.submit "ログイン", class: 'btn btn-default login_icon' %>
+      </div>
+    <% end %>
+    <%= link_to 'auth/facebook', class: 'btn btn-primary facebook_icon' do %>
+      <i class="fa fa-facebook-official"></i>
+      <span>FaceBookログイン</span>
+    <% end %>
+    <%= link_to 'auth/google_oauth2', class: 'btn google_icon btn-danger' do  %>
+      <i class="fa fa-google-plus-official"></i>
+      <span>Googleログイン</span>
+    <% end %>
   </div>
-<% end %>
-<%= link_to 'auth/facebook', class: 'btn btn-primary facebook_icon' do %>
-  <i class="fa fa-facebook-official"></i>
-  <span>FaceBookログイン</span>
-<% end %>
-<%= link_to 'auth/google_oauth2', class: 'btn google_icon btn-danger' do  %>
-  <i class="fa fa-google-plus-official"></i>
-  <span>Googleログイン</span>
-<% end %>
+</div>

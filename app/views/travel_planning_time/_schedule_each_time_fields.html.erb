@@ -1,7 +1,7 @@
 <div class='nested-fields'>
-  <%= f.hidden_field :user_id, :value => @schedule_each_date.user_id %>
-  <%= f.hidden_field :schedule_id, :value => @schedule_each_date.schedule_id %>
-
+  <li>
+    <%= f.hidden_field :user_id, :value => @schedule_each_date.user_id %>
+    <%= f.hidden_field :schedule_id, :value => @schedule_each_date.schedule_id %>
     <div class="field">
       <%= f.label :from_time, "滞在開始時間" %>
       <%= f.time_select :from_time %>〜
@@ -11,6 +11,8 @@
     <div class="field">
       <%= f.label :memo, "メモ" %>
       <%= f.text_field :memo %>
+    </div>
+    <div class="field">
       <%= f.label :place_id, "場所" %>
       <%= f.select :place_id, @spots, {}, :disabled => true %>
       <%= f.hidden_field :place_id %>
@@ -23,4 +25,6 @@
     <% if @schedule_each_date.schedule_each_times.count != 0 %>
       <%= link_to_remove_association "このスケジュールを削除する", f %>
     <% end %>
+  </li>
+
 </div>

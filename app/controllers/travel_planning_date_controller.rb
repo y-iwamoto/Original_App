@@ -4,6 +4,8 @@ class TravelPlanningDateController < ApplicationController
     #画像アップロードでエラーがでてきたときや画面更新した時のためにセッションに格納
     session[:schedule_id] = params[:schedule_id]
     @schedule_id = session[:schedule_id]
+    @schedule_each_date = ScheduleEachDate.where(schedule_id: @schedule_id).order(:created_at).first
+    gon.firstDay  = @schedule_each_date.sche_date
     respond_to do |format|
       format.html
     end

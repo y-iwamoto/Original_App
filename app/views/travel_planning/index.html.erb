@@ -1,13 +1,10 @@
 <div class="row">
-  <aside class="col-md-4">
-    <!-- サイドパネル設置予定 -->
-  </aside>
-  <div class="col-md-8">
-
-    <% flash_messages %>
+    <div class="panel_top">
+      <% flash_messages %>
+    </div>
     <div class="schedule-index pull-left">
       <div class="row">
-        <div class="col-md-4 col-md-offset-4 text-center"><h2>旅行一覧</h2></div>
+        <div class="col-md-4 col-md-offset-4 text-center"><h3 class="page-header">旅行一覧</h3></div>
       </div>
       <%= render "index" %>
       <div class="row">
@@ -18,13 +15,12 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-10 col-md-offset-1 text-center">
-          <%= paginate @schedules %>
+        <div class="text-center">
+          <%= paginate @schedules, window: 3 %>
         </div>
       </div>
     </div>
 
     <div id="schedule-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
 
-  </div>
 </div>

@@ -1,5 +1,14 @@
-<div id="map" style="width: 800px; height: 400px;"></div>
-<%= link_to "戻る", :back %>
+<div class="panel panel-info panel_top">
+  <div class="panel-heading">
+    <h4>ルート地図</h4>
+  </div>
+  <div class="panel-body">
+    <div id="map" style="width: auto; height: 400px;"></div>
+  </div>
+</div>
+<button type="button" class="btn btn-lg btn-default btn_left_adjust">
+  <%= link_to "戻る", :back %>
+</button>
 <script type="text/javascript">
   //GoogleMapのhandler作成
   var handler = Gmaps.build('Google');

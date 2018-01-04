@@ -1,8 +1,17 @@
-<h1>お知らせ詳細</h1>
+<div class="panel panel-info panel_top">
+  <div class="panel-heading">
+    <h1>お知らせ詳細</h1>
+  </div>
+  <div class="panel-body">
+    <% if @content == nil%>
+      <h2 class="pull-left"><%= @schedules.title %></h2>
+    <% end %>
+    <button type="button" class="btn btn-lg btn-default pull-right">
+      <%= link_to '戻る', :back,data: {"turbolinks" => false} %>
+    </button>
+  </div>
+</div>
 
-<button type="button" class="btn btn-lg btn-default">
-  <%= link_to '戻る', :back,data: {"turbolinks" => false} %>
-</button>
 
 <% if @content != nil%>
   <div class="panel panel-default">
@@ -14,7 +23,6 @@
     </div>
   </div>
 <% else %>
-  <h2><%= @schedules.title %></h2>
 
   <div class="panel panel-default">
     <% @schedules.schedule_each_dates.each do |schedule_each_date| %>
