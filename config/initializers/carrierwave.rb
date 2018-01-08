@@ -12,7 +12,7 @@ CarrierWave.configure do |config|
 
   case Rails.env
     when 'production'
-      config.fog_directory = '本番環境用のバケット名'
+      config.fog_directory = 'orginalapp'
       config.asset_host = 'https://s3-ap-northeast-1.amazonaws.com/orginalapp'
   end
 end
