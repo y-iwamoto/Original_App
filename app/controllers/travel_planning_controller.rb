@@ -6,6 +6,8 @@ class TravelPlanningController < ApplicationController
 
   def index
     @schedules = Schedule.where(user_id: current_user.id).page(params[:page]).per(PER).order('created_at')
+    #エラー表示用に生成
+    @schedule = Schedule.new
   end
 
   def new
@@ -19,16 +21,20 @@ class TravelPlanningController < ApplicationController
     @schedule = Schedule.new(schedule_params)
     # トランザクション開始
     ActiveRecord::Base.transaction do
-      if @schedule.save!
+      #スケジュールのバリデーションに引っかからなかった場合
+      if @schedule.save
         #スケジュール日付データを1日ずつ作成
         sche_each_date_create
         #うまくいけば、成功メッセージ
         flash[:success] = "スケジュールを作成しました"
+        redirect_to travel_planning_index_path
+      #スケジュールのバリデーションに引っかかった場合
       else
-        sche_err_chk
+        sche_err_chk("登録")
+        #スケジュール一覧を表示させるため、検索
+        @schedules = Schedule.where(user_id: current_user.id).page(params[:page]).per(PER).order('created_at')
       end
     end
-    redirect_to travel_planning_index_path
   end
 
   def edit
@@ -44,11 +50,13 @@ class TravelPlanningController < ApplicationController
         sche_each_date_create
         #うまくいけば、成功メッセージ
         flash[:success] = "スケジュールを更新しました"
+        redirect_to travel_planning_index_path
       else
-        sche_err_chk
+        sche_err_chk("更新")
+        #スケジュール一覧を表示させるため、検索
+        @schedules = Schedule.where(user_id: current_user.id).page(params[:page]).per(PER).order('created_at')
       end
     end
-    redirect_to travel_planning_index_path
   end
 
   def destroy
@@ -66,17 +74,9 @@ class TravelPlanningController < ApplicationController
   end
 
   private
-   def sche_err_chk
+   def sche_err_chk(kbn)
      if @schedule.errors.messages.present?
-       if @schedule.errors.messages[:title].present?
-         flash[:error] = "タイトル" + @schedule.errors.messages[:title][0]
-       end
-         if @schedule.errors.messages[:from_date].present?
-           flash[:error] = @schedule.errors.messages[:from_date][1]
-         end
-         if @schedule.errors.messages[:to_date].present?
-           flash[:error] = @schedule.errors.messages[:to_date][1]
-         end
+         flash[:error] = "スケジュールが" + kbn + "できませんでした"
      end
    end
 

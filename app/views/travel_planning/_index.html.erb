@@ -1,3 +1,11 @@
+<% if @schedule.errors.any? %>
+<div class="alert alert-danger">
+  <% @schedule.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+  <% end %>
+</div>
+<% end %>
+<% flash_messages %>
 <% if @schedules.count != 0%>
 <table class="table table-striped table-hover" style="table-layout:fixed;">
 <% @schedules.each do |schedule| %>
@@ -19,10 +27,23 @@
         <i class="glyphicon glyphicon-calendar" aria-hidden="true"></i>
       <% end %>
     </td>
-
   </tr>
 <% end %>
 </table>
 <% else %>
-<div class="well">データが１件もありません。下記のボタンでスケジュール登録を行ってください</div>
+  <div class="well">データが１件もありません。下記のボタンでスケジュール登録を行ってください</div>
 <% end %>
+
+<div class="row">
+  <div class="col-md-4 col-md-offset-4 text-center">
+    <%= link_to new_travel_planning_path, remote: true, class: "btn btn-default" do  %>
+      <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
+    <% end %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-10 col-md-offset-1 text-center">
+    <%= paginate @schedules %>
+  </div>
+</div>
