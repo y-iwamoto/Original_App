@@ -51,31 +51,17 @@ RSpec.describe "Schedules", :type => :feature do
        end
      end
      context 'スケジュールが11件以上の場合(ページングあり)' do
-      before(:each) do
-        #スケジュールデータをタイトル名がtest1~test11で作成
-        i = 1
-        11.times do
-           FactoryGirl.create(:schedule_feature,user_id: user.id,title: "test_" + i.to_s )
-           i = i + 1
-        end
-        visit travel_planning_index_path
-      end
-       it '１ページ目のタイトルでtest1が表示されていること' do
-         expect(page).to have_selector 'table tr td', text: 'test_1'
+       before(:each) do
+         FactoryGirl.create_list(:schedule_many_dates_create, 11)
+         visit travel_planning_index_path
        end
-      it 'ページングが表示されていること' do
-        expect(page).to have_css '.pagination'
-      end
-      it 'ページングが番号が１で表示されていること' do
-        expect(all('ul.pagination li.active a')[0]).to have_content "1"
-      end
-      it '２ページ目に遷移した際に、ページングが番号が2で表示されていること' do
-        all('ul.pagination li')[1].find("a").click
-        expect(all('ul.pagination li.active a')[0]).to have_content "2"
-      end
-      it '２ページ目に遷移した際に、タイトルでtest11が表示されていること' do
-        all('ul.pagination li')[1].find("a").click
-        expect(page).to have_selector 'table tr td', text: 'test_11'
+       it 'ページングが表示されていて最初は１ページ目で2017-12-01始まりの日付データが存在し、２ページ後に遷移後に2017-12-11始まりの日付が表示されていること'  do
+         expect(page).to have_css '.pagination'
+         expect(all('ul.pagination li.active a')[0]).to have_content "1"
+         expect(page).to have_selector 'table tr td', text: '2017-12-01〜2017-12-31'
+         all('ul.pagination li')[1].find("a").click
+         expect(all('ul.pagination li.active a')[0]).to have_content "2"
+         expect(page).to have_selector 'table tr td', text: '2017-12-11〜2017-12-31'
       end
      end
   end
@@ -158,12 +144,9 @@ RSpec.describe "Schedules", :type => :feature do
       end
     end
     context '登録異常系(入力あり)' do
+      let(:handle) { page.driver.browser.window_handles.last}
       before(:each, :js => true) do
-        i = 1
-        11.times do
-           FactoryGirl.create(:schedule_feature,user_id: user.id,title: "test_" + i.to_s )
-           i = i + 1
-        end
+        FactoryGirl.create_list(:schedule_many_create, 11)
         visit travel_planning_index_path
         find('.glyphicon-plus').click
         page.driver.browser.within_window(handle) do
@@ -173,17 +156,11 @@ RSpec.describe "Schedules", :type => :feature do
           click_button '登録'
         end
       end
-      it '入力したタイトルが表示されないこと'  , js: true do
-          expect(page).to have_no_selector 'table tr td', text: 'test21'
-      end
-      it 'エラーメッセージが表示されていること'  , js: true do
+      it 'エラーが発生し、入力したタイトルが登録されていないが新規登録ボタンやページング部分が表示されていること'  , js: true do
           expect(page).to have_css '.alert-danger'
-      end
-      it 'エラーを起こしても新規登録ボタンが表示されていること' , js: true do
-        expect(page).to have_css '.glyphicon-plus'
-      end
-      it 'エラーを起こしてもページングボタンが表示されていること' , js: true do
-        expect(page).to have_css '.pagination'
+          expect(page).to have_no_selector 'table tr td', text: 'test21'
+          expect(page).to have_css '.glyphicon-plus'
+          expect(page).to have_css '.pagination'
       end
 
     end
@@ -285,14 +262,14 @@ RSpec.describe "Schedules", :type => :feature do
     end
   end
   describe 'スケジュール日付別遷移確認' do
-    let(:schedule) { FactoryGirl.create(:schedule_feature,user_id: user.id) }
+    let(:schedule) { FactoryGirl.create(:schedule_with_each_date,user_id: user.id) }
     before do
       schedule
       visit travel_planning_index_path
       click_link nil, href: travel_planning_date_index_path(:schedule_id => schedule.id)
     end
     it 'スケジュール日付別画面に遷移していること' do
-        expect(current_url).to include 'travel_planning_date?schedule_id=1'
+        expect(page).to have_content 'スケジュール日程作成'
     end
   end
 end
