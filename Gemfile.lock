@@ -118,6 +118,7 @@ GEM
       mime-types (>= 1.16)
     childprocess (0.8.0)
       ffi (~> 1.0, >= 1.0.11)
+    cliver (0.3.2)
     cocoon (1.2.11)
     coderay (1.1.2)
     coffee-rails (4.2.2)
@@ -133,6 +134,7 @@ GEM
       deep_merge (~> 1.1.1)
       dry-validation (~> 0.10.4)
     crass (1.0.2)
+    database_cleaner (1.6.2)
     debug_inspector (0.0.3)
     deep_merge (1.1.1)
     devise (4.3.0)
@@ -143,6 +145,7 @@ GEM
       warden (~> 1.2.3)
     devise-i18n (1.4.0)
       devise (>= 3.1)
+    diff-lcs (1.3)
     domain_name (0.5.20170404)
       unf (>= 0.0.5, < 1.0.0)
     dotenv (2.2.1)
@@ -181,6 +184,13 @@ GEM
     erubi (1.7.0)
     excon (0.59.0)
     execjs (2.7.0)
+    factory_girl (4.9.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.9.0)
+      factory_girl (~> 4.9.0)
+      railties (>= 3.0.0)
+    faker (1.8.7)
+      i18n (>= 0.7)
     faraday (0.12.2)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.18)
@@ -358,6 +368,20 @@ GEM
       httparty (>= 0.13.1)
     gretel (3.0.9)
       rails (>= 3.1.0)
+    guard (2.14.1)
+      formatador (>= 0.2.4)
+      listen (>= 2.7, < 4.0)
+      lumberjack (~> 1.0)
+      nenv (~> 0.1)
+      notiffany (~> 0.0)
+      pry (>= 0.9.12)
+      shellany (~> 0.0)
+      thor (>= 0.18.1)
+    guard-compat (1.2.1)
+    guard-rspec (4.7.3)
+      guard (~> 2.1)
+      guard-compat (~> 1.1)
+      rspec (>= 2.99.0, < 4.0)
     has_scope (0.7.1)
       actionpack (>= 4.1, < 5.2)
       activesupport (>= 4.1, < 5.2)
@@ -426,6 +450,7 @@ GEM
     loofah (2.1.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
+    lumberjack (1.0.12)
     mail (2.7.0)
       mini_mime (>= 0.1.1)
     meta_request (0.4.3)
@@ -445,6 +470,7 @@ GEM
     multi_json (1.12.2)
     multi_xml (0.6.0)
     multipart-post (2.0.0)
+    nenv (0.3.0)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (4.2.0)
@@ -452,6 +478,9 @@ GEM
     nio4r (2.1.0)
     nokogiri (1.8.1)
       mini_portile2 (~> 2.3.0)
+    notiffany (0.1.1)
+      nenv (~> 0.1)
+      shellany (~> 0.0)
     oauth2 (1.4.0)
       faraday (>= 0.8, < 0.13)
       jwt (~> 1.0)
@@ -473,6 +502,10 @@ GEM
       omniauth (~> 1.2)
     orm_adapter (0.5.0)
     pg (0.21.0)
+    poltergeist (1.17.0)
+      capybara (~> 2.1)
+      cliver (~> 0.3.1)
+      websocket-driver (>= 0.2.0)
     polyamorous (1.3.1)
       activerecord (>= 3.0)
     pry (0.11.2)
@@ -552,6 +585,27 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
+    rspec (3.7.0)
+      rspec-core (~> 3.7.0)
+      rspec-expectations (~> 3.7.0)
+      rspec-mocks (~> 3.7.0)
+    rspec-core (3.7.0)
+      rspec-support (~> 3.7.0)
+    rspec-expectations (3.7.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.7.0)
+    rspec-mocks (3.7.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.7.0)
+    rspec-rails (3.7.2)
+      actionpack (>= 3.0)
+      activesupport (>= 3.0)
+      railties (>= 3.0)
+      rspec-core (~> 3.7.0)
+      rspec-expectations (~> 3.7.0)
+      rspec-mocks (~> 3.7.0)
+      rspec-support (~> 3.7.0)
+    rspec-support (3.7.0)
     ruby_dep (1.5.0)
     rubyzip (1.2.1)
     sass (3.5.3)
@@ -571,8 +625,13 @@ GEM
     selenium-webdriver (3.7.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.0)
+    shellany (0.0.1)
+    shoulda-matchers (3.1.2)
+      activesupport (>= 4.0.0)
     spring (2.0.2)
       activesupport (>= 4.2)
+    spring-commands-rspec (1.0.4)
+      spring (>= 0.9.1)
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
       spring (>= 1.2, < 3.0)
@@ -648,10 +707,13 @@ DEPENDENCIES
   cocoon
   coffee-rails (~> 4.2)
   config
+  database_cleaner
   devise
   devise-i18n
   dotenv-rails
   enum_help
+  factory_girl_rails
+  faker
   fog
   font-awesome-rails
   fullcalendar-rails
@@ -659,6 +721,7 @@ DEPENDENCIES
   gon
   google_places
   gretel
+  guard-rspec
   hirb
   httparty
   jbuilder (~> 2.5)
@@ -668,6 +731,7 @@ DEPENDENCIES
   jquery-turbolinks
   kaminari
   kaminari-bootstrap (~> 3.0.1)
+  launchy
   letter_opener
   listen (>= 3.0.5, < 3.2)
   meta_request
@@ -677,6 +741,7 @@ DEPENDENCIES
   omniauth-facebook
   omniauth-google-oauth2
   pg (~> 0.18)
+  poltergeist
   pry
   pry-byebug
   pry-doc
@@ -686,10 +751,13 @@ DEPENDENCIES
   pusher
   rails (~> 5.1.4)
   ransack
+  rspec-rails
   sass-rails (~> 5.0)
   seed-fu
   selenium-webdriver
+  shoulda-matchers
   spring
+  spring-commands-rspec
   spring-watcher-listen (~> 2.0.0)
   therubyracer
   turbolinks (~> 5)
